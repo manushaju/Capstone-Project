@@ -30,12 +30,12 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-const databaseConn = 'mongodb://localhost:27017/blogDB';
+//const databaseConn = 'mongodb://localhost:27017/blogDB';
 // To connect to the database - todoDB
-mongoose.connect(databaseConn, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+// mongoose.connect(databaseConn, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
 
 
 
