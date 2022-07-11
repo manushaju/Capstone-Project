@@ -1,0 +1,13 @@
+<%- include('partials/header') -%>
+    <h1>Login Screen</h1>
+    <h1 class="alert alert-warning"><%=tempData %></h1>
+    <form action='/login' method='post' class='fluid' class="login-form">
+        <div class='row'>
+          <div class='col fluid-form form-floating mb-3'>
+            <input type="text" class='form-control input-field' name='userName' placeholder="Username" autofocus required>
+            <input type="password" class='form-control input-field' name='password' placeholder="Password" required>
+            <button class='btn btn-md btn-outline-dark' type="submit">Login</button>
+          </div>
+        </div>
+    </form>
+  <%- include('partials/footer') -%>
