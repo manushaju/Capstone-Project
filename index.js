@@ -3,8 +3,10 @@ var express = require('express');
 var path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 const userRouter = require('./routes/users');
+const registerRouter = require('./routes/register');
+
 
 var app = express();
 //setting the paths for ejs and public folders
@@ -20,17 +22,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-// Using Routes in the application
-app.use('/users', userRouter)
-
 
 app.use(session({
     secret: 'mysecret',
     resave: false,
+    httpOnly: true,
+    maxAge: 30 *60 * 1000,
     saveUninitialized: true,
-    
 }));
 
+// Using Routes in the application
+app.use('/login', userRouter)
+app.use('/register', registerRouter)
 
 const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
 mongoose.connect(databaseConn, {
@@ -38,11 +41,14 @@ mongoose.connect(databaseConn, {
     useUnifiedTopology: true
 });
 
-//Databases
 
 
 app.get('/', (req, res) => {
-  res.render('home', {tempData: "This is home page"});
+  res.render('home', {
+    tempData: "",
+    userName: req.session.username,
+    loggedIn: req.session.authenticated
+    });
 })
 
 app.get('/login', (req, res) => {
@@ -64,13 +70,3 @@ app.listen(process.env.PORT || 3500, function() {
   console.log("Server started on port 3500");
 });
 
-
-// console.log("Inside already \n" + req.session)
-// if(req.session.authenticated){ 
-//     res.render("index", {tempData: "Hello world"})
-// } else if(req.params.uname == "manu") {
-//     console.log("Correct!!!!")
-//     req.session.authenticated = true
-//     req.session.username = req.params.uname
-//     res.send(req.session)
-// }

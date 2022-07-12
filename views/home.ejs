@@ -1,4 +1,13 @@
 <%- include('partials/header') -%>
-    <h1>Home</h1>
-    <h2 class="alert alert-success"><%=tempData %></h2>
-  <%- include('partials/footer') -%>
+    <h3 class="alert alert-warning" <% if(!(tempData > "") ){ %> hidden <% }%>><%=tempData %></h3>
+    <%  if(typeof loggedIn != 'undefined') { if(loggedIn) {%>
+      <div>
+        <h1>For all your parking needs</h1>
+        <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
+      </div>
+      <% } else {%>
+        <div>
+          <h1>You are not logged in..</h1>
+        </div>
+      <% }}%>
+<%- include('partials/footer') -%>

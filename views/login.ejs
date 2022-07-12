@@ -1,6 +1,6 @@
 <%- include('partials/header') -%>
     <h1>Login Screen</h1>
-    <h1 class="alert alert-warning"><%=tempData %></h1>
+    <h1 class="alert alert-warning" <% if(!(tempData > "") ){ %> hidden <% }%>><%=tempData %></h1>
     <form action='/login' method='post' class='fluid' class="login-form">
         <div class='row'>
           <div class='col fluid-form form-floating mb-3'>
