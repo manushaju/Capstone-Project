@@ -37,17 +37,9 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
-    console.log(req.session)
-    //make DBCall here..
-    if(req.body.userName == "manu" && req.body.password == "1234"){
-        req.session.isLoggedIn = true;
-        res.render('home', {tempData: `Welcome ${req.body.userName}`})
-    } else {
-        res.render('login', {userName: "", tempData:"Please enter the valid credentials"})
-    }
-    
-})
+
+
+router.get('/logout')
 
 
 module.exports = router

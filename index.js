@@ -1,12 +1,17 @@
 //including dependancies
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('cookie-session');
+
+
+
+//Adding routes
 const userRouter = require('./routes/users');
 const registerRouter = require('./routes/register');
-
+const mapRouter = require('./routes/maps');
 
 var app = express();
 //setting the paths for ejs and public folders
@@ -34,14 +39,13 @@ app.use(session({
 // Using Routes in the application
 app.use('/login', userRouter)
 app.use('/register', registerRouter)
+app.use('/map', mapRouter)
 
 const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
 mongoose.connect(databaseConn, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
-
 
 app.get('/', (req, res) => {
   res.render('home', {
@@ -51,20 +55,14 @@ app.get('/', (req, res) => {
     });
 })
 
-app.get('/login', (req, res) => {
-    res.render('login', {userName: "", tempData:""})
+
+app.get('/logout', (req, res) => {
+    req.session.authenticated = false
+    req.session.username = ""
+    res.redirect('/')
 })
 
-app.get('/register', (req, res) => {
-    res.render('register', {tempData: ""})
-})
 
-
-
-app.post('/register', (req, res) => {
-    console.log(req.body)
-    res.render('home', {tempData: "You are registered in successfully"})
-})
 
 app.listen(process.env.PORT || 3500, function() {
   console.log("Server started on port 3500");

@@ -1,0 +1,58 @@
+<%- include('partials/header') -%>
+    <h1>Maps</h1>
+    <form action='/map' method='post' class='fluid' class="maps-form">
+      <div class='row'>
+        <div class='col fluid-form form-floating mb-3'>
+          <input type="text" class='form-control input-field' name='location' placeholder="Please enter a location" autofocus required>
+          <button class='btn btn-md btn-outline-dark' type="submit">Find the location</button>
+        </div>
+      </div>
+  </form>
+    <div><%= mapsData.lat%>, <%= mapsData.lng%>; <%= mapsData.location%></div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var lat = <%= mapsData.lat %>;
+        var lng = <%= mapsData.lng %>;
+        var center = {lat: lat, lng: lng };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: center,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+              style:google.maps.MapTypeControlStyle.VERTICAL_BAR,
+              position: google.maps.ControlPosition.BOTTOM_CENTER,
+            },
+            panControl: true,
+            panControlOptions: {
+              position: google.maps.ControlPosition.TOP_LEFT,
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+              style: google.maps.ZoomControlStyle.LARGE,
+              position: google.maps.ControlPosition.LEFT_CENTER,
+            },
+            scaleConrol: true,
+            scaleControlOptions:{
+              position: google.maps.ControlPosition.TOP_LEFT ,
+            },
+        });
+        var contentString = `
+          <strong><%= mapsData.name %><br />
+          <%= mapsData.location %></strong>
+          <p><%= mapsData.description %></p>
+        `
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDo9M13aqMKVLGTcQpzwH44CD7D1gzLNs&callback=initMap"></script>
+  <%- include('partials/footer') -%>
