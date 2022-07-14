@@ -7,11 +7,12 @@ const bodyParser = require('body-parser');
 const session = require('cookie-session');
 
 
-
 //Adding routes
 const userRouter = require('./routes/users');
 const registerRouter = require('./routes/register');
 const mapRouter = require('./routes/maps');
+const profileRouter = require('./routes/profile');
+const listingRouter = require('./routes/listings');
 
 var app = express();
 //setting the paths for ejs and public folders
@@ -40,6 +41,8 @@ app.use(session({
 app.use('/login', userRouter)
 app.use('/register', registerRouter)
 app.use('/map', mapRouter)
+app.use('/profile', profileRouter)
+app.use('/listing', listingRouter)
 
 const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
 mongoose.connect(databaseConn, {

@@ -1,9 +1,15 @@
 <%- include('partials/header') -%>
-    <h3 class="alert alert-warning" <% if(!(tempData > "") ){ %> hidden <% }%>><%=tempData %></h3>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-2">For all your parking needs</h1>
+        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+      </div>
+    </div>
     <%  if(typeof loggedIn != 'undefined') { if(loggedIn) {%>
       <div>
         <h1>For all your parking needs</h1>
         <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
+        <a href="/profile">User Profiles</a>
       </div>
       <% } else {%>
         <div>

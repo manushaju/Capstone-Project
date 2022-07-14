@@ -14,8 +14,6 @@ router.post('/', (req, res) => {
         else {
             if(data){
                 bcrypt.compare(req.body.password, data.password, (err, result) => {
-                    console.log("Input: " + req.body.password )
-                    console.log("Database: " + data.password)
                     if(result){
                         req.session.authenticated = true
                         req.session.username = req.body.userName

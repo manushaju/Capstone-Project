@@ -3,11 +3,11 @@
     padding-bottom: 15px;
     border: 0;
     border-radius: 0;
-    margin-bottom: 0;
+    margin-bottom: 20px;
     font-size: 12px;
     letter-spacing: 5px;
 }
-.navbar-nav  li a:hover {
+.navbar-nav  a:hover {
     color: #1abc9c !important;
 }
 
@@ -38,6 +38,10 @@
   font-size: 2rem;
 }
 
+.footer > p > a:hover{
+  color: grey;
+}
+
 .input-field {
   background-color: #FFFFFF;
   width: 30%;
@@ -64,4 +68,13 @@
   height: 300px;
   width: 80%;
   /* The width is the width of the web page */
+}
+
+input[type=submit] {
+  text-align: center;
+}
+
+.listing-images {
+  height: 200px;
+  width: 200px;
 }
