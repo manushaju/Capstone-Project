@@ -2,7 +2,7 @@
     <h1>Home</h1>
     <% listings.forEach( (listing) => { %>
         
-        <h2><%=listing.addressLine1 %></h2>
+        <h2><a href="/map/<%=listing.addressLine1 %>"><%=listing.addressLine1 %></a></h2>
         <h2><%=listing.addressLine2 %></h2>
         <h2><%=listing.city %></h2>
         <h2><%=listing.province %></h2>
