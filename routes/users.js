@@ -2,10 +2,9 @@ const express = require('express')
 const router = express.Router()
 const users = require('../models/User')
 const bcrypt = require('bcrypt')
-const saltRounds = 10;
 
 router.get('/', (req, res) => {
-    res.render("login", {tempData: ""})
+    res.render("login")
 })
 
 router.post('/', (req, res) => {

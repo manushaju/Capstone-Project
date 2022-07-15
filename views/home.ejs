@@ -12,8 +12,13 @@
         <a href="/profile">User Profiles</a>
       </div>
       <% } else {%>
-        <div>
-          <h1>You are not logged in..</h1>
+        <div class="landing-buttons">
+          <form action="/login" method="get">
+            <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
+          </form>
+          <form action="/register" method="get">
+            <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
+          </form>
         </div>
       <% }}%>
 <%- include('partials/footer') -%>
