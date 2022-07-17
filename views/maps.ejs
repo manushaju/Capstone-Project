@@ -12,6 +12,13 @@
     <div id="map"></div>
     <script>
       function initMap() {
+        var locations = [
+          ['Bondi Beach', -33.890542, 151.274856, 4],
+          ['Coogee Beach', -33.923036, 151.259052, 5],
+          ['Cronulla Beach', -34.028249, 151.157507, 3],
+          ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+          ['Maroubra Beach', -33.950198, 151.259302, 1]
+        ];
         var lat = <%= mapsData.lat %>;
         var lng = <%= mapsData.lng %>;
         var center = {lat: lat, lng: lng };
@@ -45,12 +52,21 @@
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
-        var marker = new google.maps.Marker({
-            position: center,
+        var marker = []
+        marker[0] = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[1][1], locations[1][2]),
             map: map
         });
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
+        marker[1] = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[0][1], locations[0][2]),
+            map: map
+        }); 
+        console.log(marker)
+        marker[0].addEventListener('click', function() {
+          infowindow.open(map, marker[0]);
+        });
+        marker[1].addEventListener('click', function() {
+          infowindow.open(map, marker[1]);
         });
       }
     </script>

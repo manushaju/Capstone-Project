@@ -8,6 +8,7 @@ const schema = mongoose.Schema({
     zipcode: String,
     phone: String,
     images: Array,
+    userId: String,
     hourlyRate: String,
     monthlyRate: String,
 })

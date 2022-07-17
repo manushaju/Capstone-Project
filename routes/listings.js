@@ -4,6 +4,8 @@ const router = express.Router()
 const fileUpload = require('express-fileupload')
 const listings = require('../models/listing')
 var alerts = require('../data/alerts')
+var middlewareObj = require('../middleware/index')
+
 const NodeGeocoder = require('node-geocoder');
 // Setup Geocoder options
 var options = {
@@ -30,11 +32,11 @@ var listing = {
     monthlyRate: "",
 }
 
-router.get('/', (req, res) =>{
+router.get('/', middlewareObj.isLoggedIn, (req, res) =>{
     res.render('addListing', {listing: listing})
 })
 
-router.get('/list', (req, res) => {
+router.get('/list', middlewareObj.isLoggedIn, (req, res) => {
     listings.find( (err, data) => {
         if(!err && data) {
             res.render("allListings", {listings: data})
@@ -42,7 +44,7 @@ router.get('/list', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', middlewareObj.isLoggedIn,  (req, res) => {
     listings.findOne({addressLine1: req.body.addressLine1}, (err, data) => {
         if(err) {
             console.log(err)
@@ -53,24 +55,26 @@ router.post('/', (req, res) => {
                     if(geoerr || !geodata.length) {
                         alerts.data = "Invalid address, please enter a valid one"
                         alerts.type = "danger"
-                        res.render("addListing", {listing: req.body})
+                        res.render("addListing", {listing: req.body, alert: true, alerts: alerts })
+                    } else {
+                        const newListing = new listings(req.body)
+                        newListing.images = []
+
+                        if (req.files.images.length > 0) {
+                            req.files.images.forEach( (image) => {
+                                newListing.images.push(image)
+                            } )
+                        } else {
+                            newListing.images.push(req.files.images)
+                        }
+                        newListing.userId = req.session.userId
+                        newListing.save().then( () => {
+                            alerts.data = "Listing added successfully"
+                            alerts.type = "success"
+                            res.render('home', {alert: true, alerts: alerts})
+                        })
                     }
                 })
-                const newListing = new listings(req.body)
-                newListing.images = []
-
-                if (req.files.images.length > 0) {
-                    req.files.images.forEach( (image) => {
-                        newListing.images.push(image)
-                    } )
-                } else {
-                    newListing.images.push(req.files.images)
-                }
-                newListing.save().then( () => {
-                    alerts.data = "Listing added successfully"
-                    alerts.type = "success"
-                    res.render('home', {alert: true, alerts: alerts})
-            })
             } else {
                 alerts.data = "Address already present in the database"
                 alerts.type = "danger"

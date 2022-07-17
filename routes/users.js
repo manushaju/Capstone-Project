@@ -3,6 +3,8 @@ const router = express.Router()
 const users = require('../models/User')
 const bcrypt = require('bcrypt')
 
+var alerts = require('../data/alerts')
+
 router.get('/', (req, res) => {
     res.render("login")
 })
@@ -16,19 +18,24 @@ router.post('/', (req, res) => {
                     if(result){
                         req.session.authenticated = true
                         req.session.username = req.body.userName
+                        req.session.userId = data._id
                         res.render('home', {
                             tempData: "",
                             userName: req.session.username,
                             loggedIn: req.session.authenticated
                         })
                     } else {
-                        res.render('login', {tempData: "password is incorrect"})
+                        alerts.data = "Password is incorrect"
+                        alerts.type = "danger"
+                        res.render('login', {alert: true, alerts: alerts})
                     }
                     
                 })
             }
             else {
-                res.render('login', {tempData: "User not registered"})
+                alerts.data = "User is not registered"
+                alerts.type = "danger"
+                res.render('login', {alert: true, alerts: alerts})
             }
         }
     })

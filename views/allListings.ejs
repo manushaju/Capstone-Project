@@ -2,14 +2,14 @@
     <h1>Home</h1>
     <% listings.forEach( (listing) => { %>
         
-        <h2><a href="/map/<%=listing.addressLine1 %>"><%=listing.addressLine1 %></a></h2>
-        <h2><%=listing.addressLine2 %></h2>
-        <h2><%=listing.city %></h2>
-        <h2><%=listing.province %></h2>
-        <h2><%=listing.zipcode %></h2>
-        <h2><%=listing.phone %></h2>
-        <h2><%=listing.hourlyRate %></h2>
-        <h2><%=listing.monthlyRate %></h2>
+        <p><a href="/map/<%=listing.addressLine1 %>"><%=listing.addressLine1 %></a></p>
+        <p><%=listing.addressLine2 %></p>
+        <p><%=listing.city %></p>
+        <p><%=listing.province %></p>
+        <p><%=listing.zipcode %></p>
+        <p><%=listing.phone %></p>
+        <p><%=listing.hourlyRate %></p>
+        <p><%=listing.monthlyRate %></p>
         <% listing.images.forEach( (image) => { %>
             <img class="listing-images" src="data:image/<%=image.contentType%>;base64,
                 <%=image.data.toString('base64')%>" alt="image for user">

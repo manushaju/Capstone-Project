@@ -10,7 +10,7 @@ const session = require('cookie-session');
 //Adding routes
 const userRouter = require('./routes/users');
 const registerRouter = require('./routes/register');
-const mapRouter = require('./routes/maps');
+const searchRouter = require('./routes/search');
 const profileRouter = require('./routes/profile');
 const listingRouter = require('./routes/listings');
 
@@ -40,7 +40,7 @@ app.use(session({
 // Using Routes in the application
 app.use('/login', userRouter)
 app.use('/register', registerRouter)
-app.use('/map', mapRouter)
+app.use('/search', searchRouter)
 app.use('/profile', profileRouter)
 app.use('/listing', listingRouter)
 
