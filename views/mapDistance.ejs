@@ -1,7 +1,10 @@
 <%- include('partials/header') -%>
     <h1>Search for a parking space</h1>
     <form action="/search/distance">
-
+      <div class="form-group col-md-6">
+        <label for="userName">User name</label>
+        <input type="text" id="userName" class='form-control' name='userName' placeholder="Username" autofocus required>
+      </div>
     </form>
     <div id="map"></div>
     <script>

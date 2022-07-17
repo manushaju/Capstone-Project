@@ -1,0 +1,118 @@
+<%- include('partials/header') -%>
+    <h1>Search for a parking spot here.</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="container">
+                    <div class="row">
+                        <form action="/search/distance" method="post">
+                            <input type="text" id="userName" name='userName' placeholder="Location" autofocus required>
+                           <div class="container">
+                              <div class="row">
+                                  <div class="col">
+                                      <table>
+                                          <tr>
+                                              <th>Enter Before</th>
+                                              <th>Exit After</th>                            
+                                          </tr>
+                                          <tr>
+                                              <td><input type="date" name="fromDate" value="2022-06-07"></td>
+                                              <td><input type="date" name="toDate" value="2022-06-07"></td>                            
+                                          </tr>
+                                          <tr>
+                                              <td><input type="time" name="fromTime" value="00:00"></td>
+                                              <td><input type="time" name="toTime" value="00:00"></td>
+                                          </tr>
+                                      </table>
+                                  </div>
+                                  <div class="col">
+                                      <button type="submit">Go</button>
+                                  </div>
+                              </div>
+                           </div>
+                        </form>
+                    </div>
+                    <div class="all-listings">
+                        <%if(typeof listings != 'undefined') {%>
+                            <% if(listings.length > 0) {%>
+                                <% listings.forEach(listing => {%>
+                                    <div class="row">
+                                        <div class="d-flex flex-row listing-row">
+                                            <img class="listing-images p-2" src="data:image/<%=listing.images[0].contentType%>;base64,
+                                                    <%=listing.images[0].data.toString('base64')%>" alt="image for user">
+                                            <div class="p-2">
+                                                <h3><%=listing.addressLine1%></h3>
+                                                <p>only few mts</p>
+                                            </div>
+                                            <div class="p-2">
+                                                <h2>$<%=listing.hourlyRate%>/Hour</h2>
+                                                <a href="book/<%=listing._id%>">Book</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                               <% }) %>
+                            <%}%>
+                        <%}%>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-8">
+                <div id="map">Nothing to display here</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+      function initMap() {
+        
+        var center = {lat: <%=markers[0][0]%>, lng: <%=markers[0][1]%> };
+        var markers = [];
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: center,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+              style:google.maps.MapTypeControlStyle.VERTICAL_BAR,
+              position: google.maps.ControlPosition.BOTTOM_CENTER,
+            },
+            panControl: true,
+            panControlOptions: {
+              position: google.maps.ControlPosition.TOP_LEFT,
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+              style: google.maps.ZoomControlStyle.LARGE,
+              position: google.maps.ControlPosition.LEFT_CENTER,
+            },
+            scaleConrol: true,
+            scaleControlOptions:{
+              position: google.maps.ControlPosition.TOP_LEFT ,
+            },
+        });
+        
+        <% markers.forEach ((marker) => {%>
+          console.log(<%=marker%>)
+          var pin = new google.maps.Marker({
+            position: new google.maps.LatLng(<%= marker[0]%>, <%= marker[1]%>),
+            map: map
+          });
+          markers.push(pin)
+        <%})%>
+        console.log(markers)
+        var i = 0;
+        markers.forEach( marker => {
+          marker.addListener("mouseover", () => {
+            i++
+            var infowindow = new google.maps.InfoWindow({
+              content: JSON.stringify(marker)
+            });
+            infowindow.open(map, marker);
+          })
+        })
+        
+  
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDo9M13aqMKVLGTcQpzwH44CD7D1gzLNs&callback=initMap"></script>
+  <%- include('partials/footer') -%>

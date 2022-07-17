@@ -13,8 +13,6 @@ const client = new Client({
     key: process.env.GEOCODER_API_KEY
 })
 
-
-
 // Setup Geocoder options
 var options = {
     provider: "google",
@@ -28,23 +26,92 @@ var geocoder = NodeGeocoder(options)
 
 
 router.get('/', async function(req, res)  {
-    res.render("maps", {mapsData: mapsData})
+    // console.log(req._parsedOriginalUrl.search)
+    const urlParams = new URLSearchParams(req._parsedOriginalUrl.search)
+    var location = ""
+    if(urlParams.get('location') > "") {
+        location = urlParams.get('location')
+    } else if(req.params.location > "") {
+        location = req.params.location
+    }
+    geocoder.geocode(location, function (err, data) {
+        if (err || !data.length) {
+          alerts.data = "Invalid address, try again"
+          alerts.type = "danger"
+          res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+        } else if (data.length) {
+            var eligibleLocations = []
+            var locations = []
+            var locationsData = []
+            var locationsDataTemp = []
+            listings.find((err, data) => {
+                if (!err && data) {
+                    data.forEach( row => {
+                        // Add code for availability check here...
+                        eligibleLocations.push(row.addressLine1)
+                        locationsDataTemp.push(row)                        
+                    })
+                    client
+                    .distancematrix({
+                        params: {
+                        origins: [location],
+                        destinations: eligibleLocations,
+                        key: process.env.GEOCODER_API_KEY
+                        },
+                        timeout: 1000
+                    })
+                    .then(async function (r) {
+                        let i = 0
+                        r.data.rows[0].elements.forEach( e => {
+                            if(e.status == "OK") {
+                                if(e.distance.value < 10000) {
+                                    locations.push(eligibleLocations[i])
+                                    locationsData.push(locationsDataTemp[i])
+                                }
+                            }
+                            i++
+                        })
+                        console.log(locations)
+                        console.log(locationsData)
+                        await getLocations(locations).then(loc => {
+                            if(loc.length > 0){
+                                res.render("searchPage", {markers: loc, listings: locationsData})
+                            } else {
+                                alerts.data = "No listings in 10KM radius of your selection, try a diffrent location"
+                                alerts.type = "danger"
+                                res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+                            }
+                            
+                        })
+                    })
+                    .catch(e => {
+                        alerts.data = e
+                        alerts.type = "danger"
+                        res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+                    });
+                    }
+                })
+        }
+        
+    })
+    // console.log(req)
+    // res.render("searchPage", {mapsData: mapsData, markers:[[]]})
 }) 
 
 
 router.get('/distance', async function(req, res)  {
-    var newLocations = []
+    var eligibleLocations = []
     var locations = []
     listings.find((err, data) => {
         if (!err && data) {
             data.forEach( row => {
-                newLocations.push(row.addressLine1)
+                eligibleLocations.push(row.addressLine1)
             })
             client
             .distancematrix({
                 params: {
                 origins: ["Cambridge Centre"],
-                destinations: newLocations,
+                destinations: eligibleLocations,
                 key: process.env.GEOCODER_API_KEY
                 },
                 timeout: 1000 // milliseconds
@@ -54,7 +121,7 @@ router.get('/distance', async function(req, res)  {
                 r.data.rows[0].elements.forEach( e => {
                     if(e.status == "OK") {
                         if(e.distance.value < 10000) {
-                            locations.push(newLocations[i])
+                            locations.push(eligibleLocations[i])
                         }
                     }
                     i++
@@ -73,22 +140,6 @@ router.get('/distance', async function(req, res)  {
 })
 
 
-router.get('/:location', middlewareObj.isLoggedIn, (req, res) => {
-    geocoder.geocode(req.params.location, function (err, data) {
-        if (err || !data.length) {
-          alerts.data = "Invalid address, try again"
-          alerts.type = "danger"
-        }
-
-        if (data.length) {
-            mapsData.lat = data[0].latitude;
-            mapsData.lng = data[0].longitude;
-            mapsData.location = data[0].formattedAddress;
-        }
-        res.render("maps", {mapsData: mapsData, alert: true, alerts: alerts})
-    })
-    
-}) 
 
 router.post('/', (req, res) => {
     geocoder.geocode(req.body.location, function (err, data) {

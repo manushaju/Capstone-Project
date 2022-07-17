@@ -1,4 +1,7 @@
 <%- include('partials/header') -%>
+    <%if(typeof userName != 'undefined' ){%>
+    <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
+    <%}%>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-2">For all your parking needs</h1>
@@ -7,9 +10,12 @@
     </div>
     <%  if(typeof loggedIn != 'undefined') { if(loggedIn) {%>
       <div>
-        <h1>For all your parking needs</h1>
-        <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
-        <a href="/profile">User Profiles</a>
+        <form action="/search" method="get" class="search_form">
+          <div>
+            <input type="text" id="userName" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+          </div>
+          <button type="submit">Go</button>
+        </form>
       </div>
       <% } else {%>
         <div class="landing-buttons">
