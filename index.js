@@ -1,4 +1,5 @@
-//including dependancies
+//including dependancies Yash
+//New comment
 require('dotenv').config();
 var express = require('express');
 var path = require('path');
@@ -13,6 +14,7 @@ const registerRouter = require('./routes/register');
 const searchRouter = require('./routes/search');
 const profileRouter = require('./routes/profile');
 const listingRouter = require('./routes/listings');
+const bookingRouter = require('./routes/book');
 
 var app = express();
 //setting the paths for ejs and public folders
@@ -43,6 +45,7 @@ app.use('/register', registerRouter)
 app.use('/search', searchRouter)
 app.use('/profile', profileRouter)
 app.use('/listing', listingRouter)
+app.use('/book', bookingRouter)
 
 const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
 mongoose.connect(databaseConn, {

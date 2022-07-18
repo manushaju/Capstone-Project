@@ -65,7 +65,14 @@ router.get('/', async function(req, res)  {
                             if(e.status == "OK") {
                                 if(e.distance.value < 10000) {
                                     locations.push(eligibleLocations[i])
-                                    locationsData.push(locationsDataTemp[i])
+                                    // locationsData.push({locationsDataTemp[i]})
+                                    locationsData.push({
+                                        _id: locationsDataTemp[i]._id,
+                                        addressLine1: locationsDataTemp[i].addressLine1,
+                                        images: locationsDataTemp[i].images,
+                                        hourlyRate: locationsDataTemp[i].hourlyRate,
+                                        distance: e.distance.value,
+                                    })
                                 }
                             }
                             i++

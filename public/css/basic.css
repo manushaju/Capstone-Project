@@ -1,7 +1,6 @@
-html, body {
-  margin:0px;
+* {
+  box-sizing: border-box;
 }
-
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
