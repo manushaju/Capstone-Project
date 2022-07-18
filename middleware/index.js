@@ -8,7 +8,7 @@ middlewareObj.isLoggedIn = function (req, res, next) {
     if (req.session.authenticated) {
         return next()
     } else {
-        alerts.data = "Please login to access the content"
+        alerts.data = "Please login to your account to access the content"
         alerts.type = "danger"
         res.render("home", {alert: true, alerts, alerts: alerts})
     }
