@@ -2,7 +2,7 @@
     <h1>Search for a parking spot here.</h1>
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col">
                 <div class="container">
                     <div class="row">
                         <form action="/search/distance" method="post">
@@ -36,20 +36,20 @@
                         <%if(typeof listings != 'undefined') {%>
                             <% if(listings.length > 0) {%>
                                 <% listings.forEach(listing => {%>
-                                    <div class="row">
-                                        <div class="d-flex flex-row listing-row">
-                                            <img class="listing-images p-2" src="data:image/<%=listing.images[0].contentType%>;base64,
-                                                    <%=listing.images[0].data.toString('base64')%>" alt="image for user">
-                                            <div class="p-2">
-                                                <h3><%=listing.addressLine1%></h3>
-                                                <p>only few mts</p>
-                                            </div>
-                                            <div class="p-2">
-                                                <h2>$<%=listing.hourlyRate%>/Hour</h2>
-                                                <a href="book/<%=listing._id%>">Book</a>
+                                        <div class="row">
+                                            <div class="d-flex flex-row listing-row">
+                                                <a href="/listing/<%=listing._id%>"><img class="listing-images p-2" src="data:image/<%=listing.images[0].contentType%>;base64,
+                                                        <%=listing.images[0].data.toString('base64')%>" alt="image for user"></a>
+                                                <div class="p-2">
+                                                    <h3><%=listing.addressLine1%></h3>
+                                                    <p>only few mts</p>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h2>$<%=listing.hourlyRate%>/Hour</h2>
+                                                    <a href="book/<%=listing._id%>">Book</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                <% }) %>
                             <%}%>
                         <%}%>
@@ -57,7 +57,7 @@
                     
                 </div>
             </div>
-            <div class="col-8">
+            <div class="col-9">
                 <div id="map">Nothing to display here</div>
             </div>
         </div>

@@ -36,10 +36,11 @@ router.get('/', middlewareObj.isLoggedIn, (req, res) =>{
     res.render('addListing', {listing: listing})
 })
 
-router.get('/list', middlewareObj.isLoggedIn, (req, res) => {
-    listings.find( (err, data) => {
+router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
+    listings.find({_id: req.params.listing}, (err, data) => {
         if(!err && data) {
-            res.render("allListings", {listings: data})
+            console.log(data)
+            res.render("listing", {listing: data})
         }
     })
 })

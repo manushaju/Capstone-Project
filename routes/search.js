@@ -26,7 +26,6 @@ var geocoder = NodeGeocoder(options)
 
 
 router.get('/', async function(req, res)  {
-    // console.log(req._parsedOriginalUrl.search)
     const urlParams = new URLSearchParams(req._parsedOriginalUrl.search)
     var location = ""
     if(urlParams.get('location') > "") {
@@ -71,8 +70,6 @@ router.get('/', async function(req, res)  {
                             }
                             i++
                         })
-                        console.log(locations)
-                        console.log(locationsData)
                         await getLocations(locations).then(loc => {
                             if(loc.length > 0){
                                 res.render("searchPage", {markers: loc, listings: locationsData})
@@ -91,11 +88,8 @@ router.get('/', async function(req, res)  {
                     });
                     }
                 })
-        }
-        
+        }  
     })
-    // console.log(req)
-    // res.render("searchPage", {mapsData: mapsData, markers:[[]]})
 }) 
 
 
@@ -126,7 +120,6 @@ router.get('/distance', async function(req, res)  {
                     }
                     i++
                 })
-                console.log(locations)
                 await getLocations(locations).then(loc => {
                     res.render("mapDistance", {mapsData: mapsData, markers: loc})
                 })
