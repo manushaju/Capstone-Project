@@ -7,11 +7,6 @@ var middlewareObj = require('../middleware/index')
 var listings = require('../models/listing')
 
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    // listings.find({_id: req.params.listing}, (err, data) => {
-    //     if(!err && data) {
-            
-    //     }
-    // })
     console.log(req.params.listing)
     var date = new Date(2018, 11, 24, 10, 33, 30)
     console.log(date)
