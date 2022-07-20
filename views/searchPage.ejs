@@ -5,31 +5,31 @@
             <div class="col-3">
                 <div class="container">
                     <div class="row">
-                        <form action="/search/distance" method="post">
-                            <input type="text" id="userName" name='userName' placeholder="Location" autofocus required>
-                           <div class="container">
-                              <div class="row">
-                                  <div class="col">
-                                      <table>
-                                          <tr>
-                                              <th>Enter Before</th>
-                                              <th>Exit After</th>                            
-                                          </tr>
-                                          <tr>
-                                              <td><input type="date" name="fromDate" value="2022-06-07"></td>
-                                              <td><input type="date" name="toDate" value="2022-06-07"></td>                            
-                                          </tr>
-                                          <tr>
-                                              <td><input type="time" name="fromTime" value="00:00"></td>
-                                              <td><input type="time" name="toTime" value="00:00"></td>
-                                          </tr>
-                                      </table>
-                                  </div>
-                                  <div class="col">
-                                      <button type="submit">Go</button>
-                                  </div>
-                              </div>
-                           </div>
+                        <form action="/search" method="get">
+                            <input type="text" id="location" name='location' placeholder="Location" value='<%=inputVal.location%>' autofocus required>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <table>
+                                            <tr>
+                                                <th>Enter Before</th>
+                                                <th>Exit After</th>                            
+                                            </tr>
+                                            <tr>
+                                                <td><input type="date" name="fromDate" value="<%=inputVal.fromDate%>"></td>
+                                                <td><input type="date" name="toDate" value="<%=inputVal.toDate%>"></td>                            
+                                            </tr>
+                                            <tr>
+                                                <td><input type="time" name="fromTime" value="<%=inputVal.fromTime%>"></td>
+                                                <td><input type="time" name="toTime" value="<%=inputVal.toTime%>"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col">
+                                        <button class="search-btn" type="submit">-></button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="all-listings">

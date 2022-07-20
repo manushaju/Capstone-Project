@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
                         req.session.authenticated = true
                         req.session.username = req.body.userName
                         req.session.userId = data._id
+                        req.session.email = data.email
                         res.render('home', {
                             tempData: "",
                             userName: req.session.username,

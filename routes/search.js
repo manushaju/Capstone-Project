@@ -26,18 +26,37 @@ var geocoder = NodeGeocoder(options)
 
 
 router.get('/', async function(req, res)  {
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
     const urlParams = new URLSearchParams(req._parsedOriginalUrl.search)
-    var location = ""
-    if(urlParams.get('location') > "") {
-        location = urlParams.get('location')
-    } else if(req.params.location > "") {
-        location = req.params.location
+    var inputVal = {
+        location: "",
+        fromDate: `${today.getFullYear()}-${String(today.getMonth()).padStart(2, '0')}-${today.getDate()}`,
+        toDate: `${tomorrow.getFullYear()}-${String(tomorrow.getMonth()).padStart(2, '0')}-${tomorrow.getDate()}`,
+        fromTime: "12:00",
+        toTime: "12:00"
     }
-    geocoder.geocode(location, function (err, data) {
+    if(urlParams.get('location') > "") {
+        inputVal.location = urlParams.get('location')
+    }
+    if(urlParams.get('fromDate') > "") {
+        inputVal.fromDate = urlParams.get('fromDate')
+    }
+    if(urlParams.get('toDate') > "") {
+        inputVal.toDate = urlParams.get('toDate')
+    }
+    if(urlParams.get('fromTime') > "") {
+        inputVal.fromTime = urlParams.get('fromTime')
+    }
+    if(urlParams.get('toTime') > "") {
+        inputVal.toTime = urlParams.get('toTime')
+    }
+    geocoder.geocode(inputVal.location, function (err, data) {
         if (err || !data.length) {
           alerts.data = "Invalid address, try again"
           alerts.type = "danger"
-          res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+          res.render("searchPage", {alert: true, alerts: alerts, markers:[[]], inputVal: inputVal})
         } else if (data.length) {
             var eligibleLocations = []
             var locations = []
@@ -53,7 +72,7 @@ router.get('/', async function(req, res)  {
                     client
                     .distancematrix({
                         params: {
-                        origins: [location],
+                        origins: [inputVal.location],
                         destinations: eligibleLocations,
                         key: process.env.GEOCODER_API_KEY
                         },
@@ -79,11 +98,15 @@ router.get('/', async function(req, res)  {
                         })
                         await getLocations(locations).then(loc => {
                             if(loc.length > 0){
-                                res.render("searchPage", {markers: loc, listings: locationsData})
+                                req.session.fromDate = inputVal.fromDate
+                                req.session.toDate = inputVal.toDate
+                                req.session.fromTime = inputVal.fromTime
+                                req.session.toTime = inputVal.toTime
+                                res.render("searchPage", {markers: loc, listings: locationsData, inputVal: inputVal})
                             } else {
                                 alerts.data = "No listings in 10KM radius of your selection, try a diffrent location"
                                 alerts.type = "danger"
-                                res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+                                res.render("searchPage", {alert: true, alerts: alerts, markers:[[]], inputVal: inputVal})
                             }
                             
                         })
@@ -91,7 +114,7 @@ router.get('/', async function(req, res)  {
                     .catch(e => {
                         alerts.data = e
                         alerts.type = "danger"
-                        res.render("searchPage", {alert: true, alerts: alerts, markers:[[]]})
+                        res.render("searchPage", {alert: true, alerts: alerts, markers:[[]], inputVal: inputVal})
                     });
                     }
                 })
@@ -155,6 +178,7 @@ router.post('/', (req, res) => {
         res.render("maps", {mapsData: mapsData, alert: true, alerts: alerts})
     })
 })
+
 
 
 

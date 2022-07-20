@@ -1,7 +1,61 @@
 <%- include('partials/header') -%>
     <h1>Booking</h1>
-    <% users.forEach( (user) => { %>
-        
-        <h2><%=user.name %></h2>
-    <%})    %>
+    <div class="book-container">
+        <div class="book-left-container">
+            <form action="/book/<%=info.parkingSpaceId%>" method="post">
+                <div>
+                    <h3>1. Account Info</h3>
+                    <h3>Confirm Email Address</h3>
+                    <input type="email" value="<%=info.email%>" name="email">
+                </div>
+                <div>
+                    <h3>2. Reservation Details</h3>
+                    <label for="phone">Phone</label>
+                    <input type="text" id='phone' name="phone" value="<%=info.phone%>">
+                    <h4>Vehicle Details</h4>
+                    <label for="makeModel">Make & Model</label>
+                    <input type="text" value="" name="makeModel" id="makeModel" value="<%=info.email%>">
+                    <label for="licensePlate">License Plate</label>
+                    <input type="text" value="" name="licensePlate" id="licensePlate" value="<%=info.licensePlate%>">
+                    <label for="province">State/Province</label>
+                    <input type="text" value="" name="province" id="province" value="<%=info.province%>">
+                </div>  
+                <div>
+                    <h3>3. Payment Details</h3>
+                    <h5>Total $<%=rates.total.toFixed(2)%></h5>
+                    <hr>
+                    <h5>Tax $<%=rates.tax.toFixed(2)%></h5>
+                    <hr>
+                    <h5>Net Total $<%=rates.net.toFixed(2)%></h5>
+                    <button type="submit">Book</button>
+                </div>   
+            </form>
+        </div>
+        <div class="book-right-container">
+            <div>
+                <h2>Slot information</h2>
+            </div>
+            <div>
+                <h2>Reservation Details</h2>
+                <table>
+                    <tr>
+                        <td>Enter Before</td>
+                        <td><i class="fa-solid fa-arrow-right"></i></td>
+                        <td>Exit After</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>June 29th, 2022</h4>
+                            <h6>10:00 AM</h6>
+                        </td>
+                        <td></td>
+                        <td>
+                            <h4>June 30th, 2022</h4>
+                            <h6>10:00 AM</h6>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 <%- include('partials/footer') -%>
