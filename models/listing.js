@@ -9,8 +9,8 @@ const schema = mongoose.Schema({
     phone: String,
     images: Array,
     userId: String,
-    hourlyRate: String,
-    monthlyRate: String,
+    hourlyRate: Number,
+    monthlyRate: Number,
 })
 
 module.exports = mongoose.model("Listing", schema);

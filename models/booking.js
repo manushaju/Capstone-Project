@@ -3,8 +3,11 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema({
     parkingSpaceId: String,
     userId: String,
-    fromTS: String,
-    toTS: String,
+    fromTS: Date,
+    toTS: Date,
+    total: Number,
+    tax: Number,
+    netAmount: Number,
     email: String,
     phone: String,
     licensePlate: String,
