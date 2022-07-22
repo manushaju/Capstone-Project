@@ -10,9 +10,8 @@ const middlewareObj = require('../middleware/index')
 router.get('/', middlewareObj.isLoggedIn, async (req, res) => {
     let userData = {}
     userData.data = await getUserData(req.session.userId)
-    // userData.listing = await getListings(req.session.userId)
+    userData.listings = await getListings(req.session.userId)
     userData.bookings = await getBookings(req.session.userId)
-    // res.render('profile', userData)
     res.render('profile', userData)
 })
 
@@ -55,8 +54,7 @@ async function getBookings(userId) {
                     for (const element of data) {
                         let list = await getListing(element.parkingSpaceId)
                         bookings.push({data: element, listing: list})
-                    }      
-                    console.log(bookings.length)
+                    }
                     promise(bookings)
                 }
             }

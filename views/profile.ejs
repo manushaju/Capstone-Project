@@ -4,9 +4,17 @@
     <%=data.userName%> 
     <%=data.userName%> 
     <%=data.userName%> 
-    <%=data.userName%> 
+    <%=data.userName%>
+    <%if(listings.length > 0){%> 
+    <h3>My Listing</h3>
+    <%listings.forEach(listing => {%>
+        <div><%=listing.addressLine1%></div>
+        <div><%=listing.hourlyRate%></div>
+    <%})}%>
+    <%if(bookings.length > 0){%> 
+    <h3>My Bookings</h3>
     <%bookings.forEach(booking => {%>
         <div><%=booking.data.parkingSpaceId%></div>
         <div><%=booking.listing.addressLine1%></div>
-    <%})%>
+    <%})}%>
 <%- include('partials/footer') -%>
