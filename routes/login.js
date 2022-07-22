@@ -20,11 +20,7 @@ router.post('/', (req, res) => {
                         req.session.username = req.body.userName
                         req.session.userId = data._id
                         req.session.email = data.email
-                        res.render('home', {
-                            tempData: "",
-                            userName: req.session.username,
-                            loggedIn: req.session.authenticated
-                        })
+                        res.redirect('/')
                     } else {
                         alerts.data = "Password is incorrect"
                         alerts.type = "danger"

@@ -1,22 +1,20 @@
-//including dependancies Yash
-//New comment
 require('dotenv').config();
-var express = require('express');
-var path = require('path');
+let express = require('express');
+let path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('cookie-session');
 
 
 //Adding routes
-const userRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const searchRouter = require('./routes/search');
 const profileRouter = require('./routes/profile');
 const listingRouter = require('./routes/listings');
 const bookingRouter = require('./routes/book');
 
-var app = express();
+let app = express();
 //setting the paths for ejs and public folders
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,7 +38,7 @@ app.use(session({
 }));
 
 // Using Routes in the application
-app.use('/login', userRouter)
+app.use('/login', loginRouter)
 app.use('/register', registerRouter)
 app.use('/search', searchRouter)
 app.use('/profile', profileRouter)
@@ -57,7 +55,8 @@ app.get('/', (req, res) => {
   res.render('home', {
     tempData: "",
     userName: req.session.username,
-    loggedIn: req.session.authenticated
+    loggedIn: req.session.authenticated,
+    session: req.session
     });
 })
 

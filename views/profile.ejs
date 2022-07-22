@@ -1,0 +1,12 @@
+<%- include('partials/header') -%>
+    <h1>My Profile</h1>
+    <%=data.userName%>   
+    <%=data.userName%> 
+    <%=data.userName%> 
+    <%=data.userName%> 
+    <%=data.userName%> 
+    <%bookings.forEach(booking => {%>
+        <div><%=booking.data.parkingSpaceId%></div>
+        <div><%=booking.listing.addressLine1%></div>
+    <%})%>
+<%- include('partials/footer') -%>

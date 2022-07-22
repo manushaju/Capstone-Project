@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const NodeGeocoder = require('node-geocoder')
 const alerts = require('../data/alerts')
-var mapsData = require('../data/mapsData')
-var middlewareObj = require('../middleware/index')
-var listings = require('../models/listing')
+let mapsData = require('../data/mapsData')
+let middlewareObj = require('../middleware/index')
+let listings = require('../models/listing')
 
 //for adding Distance Calculations
 const Client  = require('@googlemaps/google-maps-services-js').Client
@@ -14,14 +14,14 @@ const client = new Client({
 })
 
 // Setup Geocoder options
-var options = {
+let options = {
     provider: "google",
     httpAdapter: "https",
     apiKey: process.env.GEOCODER_API_KEY,
     formatter: null
 }
 
-var geocoder = NodeGeocoder(options)
+let geocoder = NodeGeocoder(options)
 
 
 
@@ -30,7 +30,7 @@ router.get('/', async function(req, res)  {
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
     const urlParams = new URLSearchParams(req._parsedOriginalUrl.search)
-    var inputVal = {
+    let inputVal = {
         location: "",
         fromDate: `${today.getFullYear()}-${String(today.getMonth()).padStart(2, '0')}-${today.getDate()}`,
         toDate: `${tomorrow.getFullYear()}-${String(tomorrow.getMonth()).padStart(2, '0')}-${tomorrow.getDate()}`,
@@ -58,10 +58,10 @@ router.get('/', async function(req, res)  {
           alerts.type = "danger"
           res.render("searchPage", {alert: true, alerts: alerts, markers:[[]], inputVal: inputVal})
         } else if (data.length) {
-            var eligibleLocations = []
-            var locations = []
-            var locationsData = []
-            var locationsDataTemp = []
+            let eligibleLocations = []
+            let locations = []
+            let locationsData = []
+            let locationsDataTemp = []
             listings.find((err, data) => {
                 if (!err && data) {
                     data.forEach( row => {
@@ -124,8 +124,8 @@ router.get('/', async function(req, res)  {
 
 
 router.get('/distance', async function(req, res)  {
-    var eligibleLocations = []
-    var locations = []
+    let eligibleLocations = []
+    let locations = []
     listings.find((err, data) => {
         if (!err && data) {
             data.forEach( row => {
@@ -184,9 +184,9 @@ router.post('/', (req, res) => {
 
 async function getLocations(locations) {
     return new Promise (async function(promise) {
-        var returnArray = []
+        let returnArray = []
         for(const element of locations) {
-            var value = await getLatLng(element)
+            let value = await getLatLng(element)
             returnArray.push(value)
         }
         promise(returnArray)
