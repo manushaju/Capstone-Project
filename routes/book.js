@@ -26,11 +26,12 @@ let rates = {
 }
 
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    listing.findOne( {_id: req.params.listing}, (err, data) => {
+    console.log(req.params.listing)
+    listings.findOne( {_id: req.params.listing}, (err, data) => {
         if(!err && data) {
             rates.total = parseFloat(data.hourlyRate) * 24
             rates.tax = rates.total * .13
-            rates.netAmount = rates.total * rates.tax
+            rates.netAmount = rates.total + rates.tax
             req.session.rates = rates
             console.log(rates.total)
             custDetails.parkingSpaceId = req.params.listing
@@ -40,7 +41,7 @@ router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
 })
 
 router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    
+    let currentTS = new Date() 
     let booking = new bookings ({
         parkingSpaceId: req.params.listing,
         userId: req.session.userId,
@@ -48,6 +49,7 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
         toTS: functions.convertDate(req.session.toDate, req.session.toTime),
         email: req.body.email,
         phone: req.body.phone,
+        dateBooked: currentTS,
         total: req.session.rates.total,
         tax: req.session.rates.tax,
         netAmount: req.session.rates.netAmount,

@@ -1,10 +1,19 @@
 <%- include('partials/header') -%>
+    <%if(typeof data.image[0].data != 'undefined') {%>
+        <img class="profile-pic" src="data:image/<%=data.image[0].contentType%>;base64,
+                    <%=data.image[0].data.toString('base64')%>" alt="image for user">
+    <%} else {%>
+        <div class="profile-pic">
+            No profile image
+        </div>
+    <%}%>
     <h1>My Profile</h1>
     <%=data.userName%>   
     <%=data.userName%> 
     <%=data.userName%> 
     <%=data.userName%> 
     <%=data.userName%>
+    
     <%if(listings.length > 0){%> 
     <h3>My Listing</h3>
     <%listings.forEach(listing => {%>

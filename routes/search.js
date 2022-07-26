@@ -5,13 +5,15 @@ const alerts = require('../data/alerts')
 let mapsData = require('../data/mapsData')
 let middlewareObj = require('../middleware/index')
 let listings = require('../models/listing')
-
+let bookings = require('../models/booking')
+let {getValidBookings} = require('../data/databaseQueries')
 //for adding Distance Calculations
 const Client  = require('@googlemaps/google-maps-services-js').Client
 
 const client = new Client({
     key: process.env.GEOCODER_API_KEY
 })
+
 
 // Setup Geocoder options
 let options = {
@@ -23,7 +25,12 @@ let options = {
 
 let geocoder = NodeGeocoder(options)
 
-
+router.get('/difference', async (req, res) => {
+    let data = await getValidBookings()
+    console.log("*********")
+    console.log(data[0].bookingDetails.length)
+    res.send({value: data[0]})
+})
 
 router.get('/', async function(req, res)  {
     const today = new Date()

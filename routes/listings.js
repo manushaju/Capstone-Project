@@ -2,24 +2,24 @@ const express = require('express')
 const router = express.Router()
 const fileUpload = require('express-fileupload')
 const listings = require('../models/listing')
-var alerts = require('../data/alerts')
-var middlewareObj = require('../middleware/index')
+let alerts = require('../data/alerts')
+let middlewareObj = require('../middleware/index')
 
 const NodeGeocoder = require('node-geocoder');
 // Setup Geocoder options
-var options = {
+let options = {
     provider: "google",
     httpAdapter: "https",
     apiKey: process.env.GEOCODER_API_KEY,
     formatter: null
 }
 
-var geocoder = NodeGeocoder(options)
+let geocoder = NodeGeocoder(options)
 
 router.use(fileUpload())
-var imageArray = []
+let imageArray = []
 
-var listing = {
+let listing = {
     addressLine1: "",
     addressLine2: "",
     city: "",

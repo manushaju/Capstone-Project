@@ -93,16 +93,16 @@
               position: google.maps.ControlPosition.TOP_LEFT ,
             },
         });
-        
-        <% markers.forEach ((marker) => {%>
-          console.log(<%=marker%>)
+        const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+        <% markers.forEach ((marker) => { %>
           var pin = new google.maps.Marker({
             position: new google.maps.LatLng(<%= marker[0]%>, <%= marker[1]%>),
-            map: map
+            map: map,
           });
           markers.push(pin)
         <%})%>
-        console.log(markers)
+        
+
         var i = 0;
         markers.forEach( marker => {
           marker.addListener("mouseover", () => {

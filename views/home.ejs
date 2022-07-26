@@ -12,10 +12,13 @@
       <div>
         <form action="/search" method="get" class="search_form">
           <div>
-            <input type="text" id="userName" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+            <input type="text" id="location" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
           </div>
           <button type="submit">Go</button>
         </form>
+        <div>
+          <a href="/listing">Add a listing</a>
+        </div>
       </div>
       <% } else {%>
         <div class="landing-buttons">
