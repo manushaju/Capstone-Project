@@ -35,7 +35,7 @@ router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
             req.session.rates = rates
             console.log(rates.total)
             custDetails.parkingSpaceId = req.params.listing
-            res.render('booking', {info: custDetails, rates: rates})
+            res.render('booking', {info: custDetails, rates: rates, session: req.session})
         }
     })
 })
@@ -45,8 +45,8 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     let booking = new bookings ({
         parkingSpaceId: req.params.listing,
         userId: req.session.userId,
-        fromTS: functions.convertDate(req.session.fromDate, req.session.fromTime),
-        toTS: functions.convertDate(req.session.toDate, req.session.toTime),
+        fromTS: new Date(req.session.fromTs),
+        toTS: new Date(req.session.toTs),
         email: req.body.email,
         phone: req.body.phone,
         dateBooked: currentTS,
@@ -58,8 +58,10 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
         province: req.body.province,
         isPaid: true,
     })
+    console.log(req.session)
     booking.save().then(() => {
         bookings.find((err, data) => {
+            if(err) return
             let newPayment = new payments({
                 bookingId: data[0]._id,
                 bookingReferenceId: "temmp reference",
@@ -69,10 +71,10 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
             newPayment.save().then(() => {
                 alerts.data = "Booking is confirmed"
                 alerts.type = "success"
-                res.render("home", {alert: true, alerts: alerts})
+                res.render("home", {alert: true, alerts: alerts, session: req.session})
             })
         }).sort({_id: -1}).limit(1)
-        
+        let date = new Date()
     })
 })
 module.exports = router

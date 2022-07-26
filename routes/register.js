@@ -8,7 +8,7 @@ const fileUpload = require('express-fileupload')
 router.use(fileUpload())
 
 router.get('/', (req, res) => {
-    res.render('register', {tempData: ""})
+    res.render('register', {session: req.session})
 })
 
 router.post('/', (req, res) => {
@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
             if(data){
                 alerts.data = `User ${req.body.userName} already present, please try with a different name.`
                 alerts.type = 'warning'
-                res.render("register", {alert: true, alerts})
+                res.render("register", {alert: true, alerts, session: req.session})
             } else {
                 bcrypt.hash(req.body.password, saltRounts, (err, hash) => {
                     var image = {}
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
                     user.save().then(() => {
                         alerts.data = `You are registered successfully`
                         alerts.type = 'success'
-                        res.render('home', {alert: true, alerts})
+                        res.render('home', {alert: true, alerts, session: req.session})
                     })
                 })
             }         

@@ -1,28 +1,28 @@
 <%- include('partials/header') -%>
-    <%if(typeof data.image[0].data != 'undefined') {%>
-        <img class="profile-pic" src="data:image/<%=data.image[0].contentType%>;base64,
-                    <%=data.image[0].data.toString('base64')%>" alt="image for user">
+    <%if(typeof userData.data.image[0].data != 'undefined') {%>
+        <img class="profile-pic" src="data:image/<%=userData.data.image[0].contentType%>;base64,
+                    <%=userData.data.image[0].data.toString('base64')%>" alt="image for user">
     <%} else {%>
         <div class="profile-pic">
             No profile image
         </div>
     <%}%>
     <h1>My Profile</h1>
-    <%=data.userName%>   
-    <%=data.userName%> 
-    <%=data.userName%> 
-    <%=data.userName%> 
-    <%=data.userName%>
+    <%=userData.data.userName%>   
+    <%=userData.data.userName%> 
+    <%=userData.data.userName%> 
+    <%=userData.data.userName%> 
+    <%=userData.data.userName%>
     
-    <%if(listings.length > 0){%> 
+    <%if(userData.listings.length > 0){%> 
     <h3>My Listing</h3>
-    <%listings.forEach(listing => {%>
+    <%userData.listings.forEach(listing => {%>
         <div><%=listing.addressLine1%></div>
         <div><%=listing.hourlyRate%></div>
     <%})}%>
-    <%if(bookings.length > 0){%> 
+    <%if(userData.bookings.length > 0){%> 
     <h3>My Bookings</h3>
-    <%bookings.forEach(booking => {%>
+    <%userData.bookings.forEach(booking => {%>
         <div><%=booking.data.parkingSpaceId%></div>
         <div><%=booking.listing.addressLine1%></div>
     <%})}%>

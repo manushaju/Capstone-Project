@@ -8,19 +8,30 @@
         <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quos totam repellat quidem voluptates nemo. Rem veniam, commodi quae perferendis iure minima officiis unde esse neque nulla aut praesentium sed?</p>
       </div>
     </div>
-    <%  if(typeof loggedIn != 'undefined') { if(loggedIn) {%>
-      <div>
-        <form action="/search" method="get" class="search_form">
+      <%if(typeof session != 'undefined'){%>
+        <% if(session.authenticated) {%>
           <div>
-            <input type="text" id="location" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+            <form action="/search" method="get" class="search_form">
+              <div>
+                <input type="text" id="location" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+              </div>
+              <button type="submit">Go</button>
+            </form>
+            <div>
+              <a href="/listing">Add a listing</a>
+            </div>
           </div>
-          <button type="submit">Go</button>
-        </form>
-        <div>
-          <a href="/listing">Add a listing</a>
-        </div>
-      </div>
-      <% } else {%>
+        <%} else {%>
+          <div class="landing-buttons">
+            <form action="/login" method="get">
+              <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
+            </form>
+            <form action="/register" method="get">
+              <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
+            </form>
+          </div>
+        <%}%>
+       <%} else {%>
         <div class="landing-buttons">
           <form action="/login" method="get">
             <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
@@ -29,15 +40,5 @@
             <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
           </form>
         </div>
-      <% }
-    } else {%>
-      <div class="landing-buttons">
-        <form action="/login" method="get">
-          <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
-        </form>
-        <form action="/register" method="get">
-          <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
-        </form>
-      </div>
-      <%}%>
+        <%}%>
 <%- include('partials/footer') -%>

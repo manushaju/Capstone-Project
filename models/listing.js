@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-//adding something here
+
 const schema = mongoose.Schema({
     addressLine1: String,
     addressLine2: String,
@@ -13,6 +13,7 @@ const schema = mongoose.Schema({
     availableToTs: Date,
     hourlyRate: Number,
     monthlyRate: Number,
+    instructions: String
 })
 
 module.exports = mongoose.model("Listing", schema);
