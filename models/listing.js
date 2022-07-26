@@ -12,5 +12,5 @@ const schema = mongoose.Schema({
     hourlyRate: Number,
     monthlyRate: Number,
 })
-//this is a comment
+
 module.exports = mongoose.model("Listing", schema);
