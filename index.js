@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('cookie-session');
 
 
+
 //Adding routes
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
@@ -27,8 +28,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
-
 app.use(session({
     secret: 'mysecret',
     resave: false,
@@ -45,11 +44,13 @@ app.use('/profile', profileRouter)
 app.use('/listing', listingRouter)
 app.use('/book', bookingRouter)
 
-const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/parkspaceDB';
+const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
 mongoose.connect(databaseConn, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+
 
 app.get('/', (req, res) => {
   res.render('home', {

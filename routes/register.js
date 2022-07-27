@@ -24,7 +24,6 @@ router.post('/', (req, res) => {
                 bcrypt.hash(req.body.password, saltRounts, (err, hash) => {
                     var image = {}
                     if (req.files) {
-                        console.log(req.files.images)
                         image = req.files.images
                     }
                     const user = new users({

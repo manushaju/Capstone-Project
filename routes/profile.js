@@ -65,8 +65,8 @@ async function getBookings(userId) {
 function getListing(listingId) {
     return new Promise ( promise => {
         listing.findOne({_id: listingId}, (err, data) => {
-            if (err) {
-                res.sendStatus(404)
+            if (!err) {
+                console.log(err)
             } else {
                 if (data) {
                     promise(data)
