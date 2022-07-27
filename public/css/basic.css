@@ -4,6 +4,15 @@
 .container {
     background-color: floralwhite;
     padding: 67px;
+    background-image: url("https://www.kindpng.com/picc/m/144-1449639_collection-of-free-vector-maps-background-map-of.png");
+  /*color: white;*/
+  background-size: cover;
+  background-position: center;
+  filter: drop-shadow(2px 4px 6px black);
+  
+}
+.landing-buttons{
+  filter: drop-shadow(2px 3px 2px black);
 }
 .navbar {
   padding-top: 15px;
@@ -25,7 +34,7 @@
   color: palegreen;
 }
 .navbar-light .navbar-nav .nav-link {
-  color: darkseagreen;
+  color: lightgreen;
   font-weight: 900;
   font-family: inherit;
   font-size: 15px;
@@ -182,7 +191,7 @@ body {
 }
 .lead {
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 800;
 }
 
 .search_form button {
