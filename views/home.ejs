@@ -1,7 +1,5 @@
 <%- include('partials/header') -%>
-    <%if(typeof userName != 'undefined' ){%>
-    <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
-    <%}%>
+    
     
     <div class="jumbotron jumbotron-fluid">
       
@@ -10,7 +8,11 @@
           <h1 class="display-2" >For all your parking needs</h1>
       </div>
       </div>
+      
       <div class="container main-container">
+        <%if(typeof userName != 'undefined' ){%>
+          <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
+        <%}%>
         <div class="container">
         <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quos totam repellat quidem voluptates nemo. Rem veniam, commodi quae perferendis iure minima officiis unde esse neque nulla aut praesentium sed? </p>
       </div>

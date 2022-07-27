@@ -1,6 +1,13 @@
 * {
   box-sizing: border-box;
 }
+.alert-dark {
+  font-family: fantasy;
+  color: darkslategray;
+  border-color: black;
+  text-align: center;
+  font-size: 44px;
+}
 .container {
     background-color: floralwhite;
     padding: 67px;
