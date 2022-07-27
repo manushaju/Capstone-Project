@@ -15,9 +15,9 @@
     <script src="https://kit.fontawesome.com/6f16f248e3.js" crossorigin="anonymous"></script>    
 <body>
     
-    <div class="container main-container">
+    <!--div class="container main-container"-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
+            <!--div class="container"-->
                 <div class="navbar-header">
                     <a href="/"><p class="navbar-brand">park-space</p></a>
                 </div>
@@ -39,9 +39,10 @@
                             <a class="nav-item nav-link" href="/register">REGISTER</a>
                         <%}%>
                     </div>
-                </div>
-            </div>
+                    
+            
         </nav>   
+       
         <% if(typeof alert != 'undefined') {%>
             <div class="alert alert-<%=alerts.type%>" role="alert"> <%=alerts.data%></div>
         <%}%>
