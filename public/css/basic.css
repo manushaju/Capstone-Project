@@ -261,6 +261,12 @@ label {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.search-container {
+  display: grid;
+  grid-template-columns: 40% 50%;
+    
+}
+
 /* To be removed*/
 
 
