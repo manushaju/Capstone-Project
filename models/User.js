@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
     addressLine2: String,
     phone: String,
     email: String,
+    image: Array,
     userName: String,
     password: String,
 })

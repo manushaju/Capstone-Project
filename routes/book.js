@@ -10,6 +10,8 @@ let payments = require('../models/payment')
 let functions = require('../data/functions')
 const listing = require('../models/listing')
 
+const paypal = require('paypal-rest-sdk')
+
 let custDetails = {
     email: "",
     phone: "",
@@ -25,29 +27,110 @@ let rates = {
     netAmount: 0
 }
 
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'ASZZc5KiU3OKIxDDgV39bovRLRAo38f8cZ7vrZ7IGgmR6QETWzWwOzfPvzEKehyM5FNbkkzGDJdDW66W',
+    'client_secret': 'EJh693rBPKWXh6atQO3-fU8efID3te4q4Lp9h3FFufD7B0AV14EuXFClqWSojljgOvB7a0F0i8EJ9Kkb'
+  });
+
+//   router.post('/pay', (req, res) => {
+//     const create_payment_json = {
+//         "intent": "sale",
+//         "payer": {
+//             "payment_method": "paypal"
+//         },
+//         "redirect_urls": {
+//             "return_url": "http://localhost:3500/book/pay/success",
+//             "cancel_url": "http://localhost:3500/book/pay/cancel"
+//         },
+//         "transactions": [{
+//             "item_list": {
+//                 "items": [{
+//                     "name": "Temp data",
+//                     "sku": "Temp Item",
+//                     "price": "25.00",
+//                     "currency": "CAD",
+//                     "quantity": 1
+//                 }]
+//             },
+//             "amount": {
+//                 "currency": "CAD",
+//                 "total": "25.00"
+//             },
+//             "description": "This is the payment description."
+//         }]
+//     };
+     
+     
+//     paypal.payment.create(create_payment_json, function (error, payment) {
+//         if (error) {
+//             throw error;
+//         } else {
+//             for(let item of payment.links) {
+//                 if(item.rel == 'approval_url') {
+//                     res.redirect(item.href)
+//                 }
+//             }
+//         }
+//     });
+// })
+
+router.get('/pay/success', (req, res) => {
+    const payerId = req.query.PayerID
+    const paymentId = req.query.paymentId
+
+    const execute_payment_json = {
+        "payer_id": payerId,
+        "transactions": [{
+            "amount": {
+                "currency": "CAD",
+                "total": `${req.session.netAmount.toFixed(2)}`,
+            }
+        }]
+    }
+
+    paypal.payment.execute(paymentId, execute_payment_json, (error, payment) => {
+        if(error) {
+            throw error;
+        } else {
+            let newPayment = new payments({
+                bookingId: req.session.bookingId,
+                bookingReferenceId: payment.id,
+                amount: req.session.netAmount,
+                paymentMethod: "PayPal"
+            })
+            newPayment.save().then( () => {
+                alerts.data = "Booking confirmed, payment successfull"
+                alerts.type = "success"
+                res.render('home', {alert: true, alerts: alerts, session: req.session})
+            })
+        }
+    })
+})
+
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    listing.findOne( {_id: req.params.listing}, (err, data) => {
+    listings.findOne( {_id: req.params.listing}, (err, data) => {
         if(!err && data) {
             rates.total = parseFloat(data.hourlyRate) * 24
             rates.tax = rates.total * .13
-            rates.netAmount = rates.total * rates.tax
+            rates.netAmount = rates.total + rates.tax
             req.session.rates = rates
-            console.log(rates.total)
             custDetails.parkingSpaceId = req.params.listing
-            res.render('booking', {info: custDetails, rates: rates})
+            res.render('booking', {info: custDetails, rates: rates, session: req.session})
         }
     })
 })
 
 router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    
+    let currentTS = new Date() 
     let booking = new bookings ({
         parkingSpaceId: req.params.listing,
         userId: req.session.userId,
-        fromTS: functions.convertDate(req.session.fromDate, req.session.fromTime),
-        toTS: functions.convertDate(req.session.toDate, req.session.toTime),
+        fromTS: new Date(req.session.fromTs),
+        toTS: new Date(req.session.toTs),
         email: req.body.email,
         phone: req.body.phone,
+        dateBooked: currentTS,
         total: req.session.rates.total,
         tax: req.session.rates.tax,
         netAmount: req.session.rates.netAmount,
@@ -58,19 +141,48 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     })
     booking.save().then(() => {
         bookings.find((err, data) => {
-            let newPayment = new payments({
-                bookingId: data[0]._id,
-                bookingReferenceId: "temmp reference",
-                amount: req.session.rates.netAmount,
-                paymentMethod: "Paypal",
-            })
-            newPayment.save().then(() => {
-                alerts.data = "Booking is confirmed"
-                alerts.type = "success"
-                res.render("home", {alert: true, alerts: alerts})
-            })
+            req.session.bookingId = data[0]._id
+            req.session.netAmount = booking.netAmount
+            const create_payment_json = {
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal"
+                },
+                "redirect_urls": {
+                    "return_url": "https://park-space.herokuapp.com/book/pay/success",
+                    "cancel_url": "https://park-space.herokuapp.com/book/pay/cancel"
+                },
+                "transactions": [{
+                    "item_list": {
+                        "items": [{
+                            "name": data[0]._id,
+                            "sku": booking.parkingSpaceId,
+                            "price": `${req.session.netAmount.toFixed(2)}`,
+                            "currency": "CAD",
+                            "quantity": 1
+                        }]
+                    },
+                    "amount": {
+                        "currency": "CAD",
+                        "total": `${req.session.netAmount.toFixed(2)}`
+                    },
+                    "description": "This is the payment for booking a parking space."
+                }]
+            };
+            paypal.payment.create(create_payment_json, function (error, payment) {
+                if (error) {
+                    throw error;
+                } else {
+                    for(let item of payment.links) {
+                        if(item.rel == 'approval_url') {
+                            res.redirect(item.href)
+                        }
+                    }
+                }
+            });
         }).sort({_id: -1}).limit(1)
-        
     })
 })
+
+
 module.exports = router

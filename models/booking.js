@@ -10,6 +10,7 @@ const schema = mongoose.Schema({
     netAmount: Number,
     email: String,
     phone: String,
+    dateBooked: Date,
     licensePlate: String,
     makeModel: String,
     province: String,

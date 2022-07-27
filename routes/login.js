@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 var alerts = require('../data/alerts')
 
 router.get('/', (req, res) => {
-    res.render("login")
+    res.render("login", {session: req.session})
 })
 
 router.post('/', (req, res) => {
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
                     } else {
                         alerts.data = "Password is incorrect"
                         alerts.type = "danger"
-                        res.render('login', {alert: true, alerts: alerts})
+                        res.render('login', {alert: true, alerts: alerts, session: req.session})
                     }
                     
                 })
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
             else {
                 alerts.data = "User is not registered"
                 alerts.type = "danger"
-                res.render('login', {alert: true, alerts: alerts})
+                res.render('login', {alert: true, alerts: alerts, session: req.session})
             }
         }
     })

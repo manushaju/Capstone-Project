@@ -40,22 +40,25 @@
                 <table>
                     <tr>
                         <td>Enter Before</td>
-                        <td><i class="fa-solid fa-arrow-right"></i></td>
+                        <td><span class="fa-solid fa-arrow-right"></span></td>
                         <td>Exit After</td>
                     </tr>
                     <tr>
                         <td>
-                            <h4>June 29th, 2022</h4>
-                            <h6>10:00 AM</h6>
+                            <h4><%=new Date(session.fromTs).toDateString()%></h4>
+                            <h6><%=new Date(session.fromTs).toTimeString().slice(0,8)%></h6>
                         </td>
                         <td></td>
                         <td>
-                            <h4>June 30th, 2022</h4>
-                            <h6>10:00 AM</h6>
+                            <h4><%=new Date(session.toTs).toDateString()%></h4>
+                            <h6><%=new Date(session.toTs).toTimeString().slice(0,8)%></h6>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+    <form action="/book/pay" method="post">
+        <input type="submit" class="form-control" value="Paypal Payment">
+    </form>
 <%- include('partials/footer') -%>
