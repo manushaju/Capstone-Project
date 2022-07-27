@@ -236,6 +236,12 @@ body {
   border-radius: 50%;
 }
 
+.search-container {
+  display: grid;
+  grid-template-columns: 40% 50%;
+    
+}
+
 /* To be removed*/
 
 
