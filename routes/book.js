@@ -91,11 +91,8 @@ router.get('/pay/success', (req, res) => {
 
     paypal.payment.execute(paymentId, execute_payment_json, (error, payment) => {
         if(error) {
-            console.log("****!*#*!@*#*!@*#!@*#*!@*#")
-            console.log(error.response)
             throw error;
         } else {
-            console.log(JSON.stringify(payment))
             let newPayment = new payments({
                 bookingId: req.session.bookingId,
                 bookingReferenceId: payment.id,
@@ -105,21 +102,19 @@ router.get('/pay/success', (req, res) => {
             newPayment.save().then( () => {
                 alerts.data = "Booking confirmed, payment successfull"
                 alerts.type = "success"
-                res.render('home', {alert: true, alerts: alerts})
+                res.render('home', {alert: true, alerts: alerts, session: req.session})
             })
         }
     })
 })
 
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
-    console.log(req.params.listing)
     listings.findOne( {_id: req.params.listing}, (err, data) => {
         if(!err && data) {
             rates.total = parseFloat(data.hourlyRate) * 24
             rates.tax = rates.total * .13
             rates.netAmount = rates.total + rates.tax
             req.session.rates = rates
-            console.log(rates.total)
             custDetails.parkingSpaceId = req.params.listing
             res.render('booking', {info: custDetails, rates: rates, session: req.session})
         }
@@ -146,7 +141,6 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     })
     booking.save().then(() => {
         bookings.find((err, data) => {
-            console.log(booking)
             req.session.bookingId = data[0]._id
             req.session.netAmount = booking.netAmount
             const create_payment_json = {

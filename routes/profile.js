@@ -19,7 +19,7 @@ function getUserData(userId) {
     return new Promise ( promise => {
         users.findOne({_id: userId}, (err, data) => {
             if (err) {
-                res.sendStatus(404)
+                promise(err)
             } else {
                 if (data) {
                     promise(data)
@@ -33,7 +33,7 @@ function getListings(userId) {
     return new Promise ( promise => {
         listing.find({userId: userId}, (err, data) => {
             if (err) {
-                res.sendStatus(404)
+                promise(err)
             } else {
                 if (data) {
                     promise(data)
@@ -48,7 +48,7 @@ async function getBookings(userId) {
     return new Promise ( promise => {
         booking.find({userId: userId}, async (err, data) => {
             if (err) {
-                res.sendStatus(404)
+                promise(err)
             } else {
                 if (data) {
                     for (const element of data) {
@@ -64,9 +64,10 @@ async function getBookings(userId) {
 
 function getListing(listingId) {
     return new Promise ( promise => {
-        listing.findOne({_id: listingId}, (err, data) => {
-            if (!err) {
-                console.log(err)
+        console.log(listingId)
+        listing.findById({_id: listingId}, (err, data) => {
+            if (err) {
+                promise(err)
             } else {
                 if (data) {
                     promise(data)

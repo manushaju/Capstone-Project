@@ -44,7 +44,7 @@ app.use('/profile', profileRouter)
 app.use('/listing', listingRouter)
 app.use('/book', bookingRouter)
 
-const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/tempDB';
+const databaseConn = 'mongodb+srv://manu_shaju_mongo:626688@cluster0.rgqoc.mongodb.net/parkspaceDB';
 mongoose.connect(databaseConn, {
     useNewUrlParser: true,
     useUnifiedTopology: true
