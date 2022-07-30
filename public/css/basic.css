@@ -91,6 +91,10 @@ input[type=submit] {
 
 }
 
+.search-container {
+  display: grid;
+  grid-template-columns: 40% 10% 50%;
+}
 .search_form button {
   margin:1em;
   border:none;
