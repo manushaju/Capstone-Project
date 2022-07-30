@@ -108,6 +108,7 @@ router.get('/pay/success', (req, res) => {
     })
 })
 
+
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     listings.findOne( {_id: req.params.listing}, (err, data) => {
         if(!err && data) {

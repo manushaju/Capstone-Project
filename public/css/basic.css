@@ -1,61 +1,19 @@
 * {
   box-sizing: border-box;
 }
-.alert-dark {
-  font-family: fantasy;
-  color: darkslategray;
-  border-color: black;
-  text-align: center;
-  font-size: 44px;
-}
-.row h1{
-  filter: drop-shadow(1px 1px 0px black);
-}
-.container {
-    background-color: floralwhite;
-    padding: 67px;
-    background-image: url("https://www.kindpng.com/picc/m/144-1449639_collection-of-free-vector-maps-background-map-of.png");
-  /*color: white;*/
-  background-size: cover;
-  background-position: center;
-  filter: drop-shadow(2px 4px 6px black);
-  
-}
-.landing-buttons{
-  filter: drop-shadow(2px 3px 2px black);
-}
 .navbar {
-  padding-top: 15px;
-  padding-bottom: 0px;
-  border: 0;
-  border-radius: 0;
-  margin-bottom: 9px;
-  font-size: 12px;
-  letter-spacing: 5px;
-  background: linear-gradient(45deg, black, transparent);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 20px;
+    font-size: 12px;
+    letter-spacing: 5px;
 }
 .navbar-nav  a:hover {
     color: #1abc9c !important;
 }
-.navbar-light .navbar-brand {
-  font-weight: bold;
-  font-size: 42px;
-  text-shadow: 2px 2px #1fa1cd;
-  color: palegreen;
-}
-.navbar-light .navbar-nav .nav-link {
-  color: lightgreen;
-  font-weight: 900;
-  font-family: inherit;
-  font-size: 15px;
-  margin: 37px;
-}
-/*.navbar-light .navbar-nav .nav-link {
-  color: forestgreen;
-  font-weight: 800;
-  font-family: auto;
-    font-size: 13px;
-}*/
+
 .footer-padding {
 	padding-bottom: 60px;
 }
@@ -67,20 +25,18 @@
 	text-align: center;
 	width: 100%;
 	/* height: 40px; */
-	background-color: darkcyan;
+	background-color: #1abc9c;
 }
 
 .footer p {
-  margin-top: 1px;
-  font-size: 12px;
+	margin-top: 10px;
+	font-size: 12px;
   color: #fff;
-  margin-bottom: 0px;
-  background: linear-gradient(45deg, black, transparent);
 }
 
 .footer > p > a {
-  color: white;
-  margin-left: 10px;
+  color: black;
+  margin-left:10px;
   margin-right: 10px;
   font-size: 2rem;
 }
@@ -128,80 +84,11 @@ input[type=submit] {
 .landing-buttons form {
   display: inline
 }
-.wrapper {
-  filter: blur(1px);
-}
-.display-2 {
-  text-align: center;
-  background: no-repeat;
-  height: 389px;
-  font-family: fantasy;
-  font-size: 5.5rem;
-  font-weight: initial;
-  line-height: 1.2;
-  background-image: url(https://media.istockphoto.com/photos/dark-parking-garage-picture-id108226913?k=6&m=108226913&s=170667a&w=0&h=DZzNOkads_srYR5jVfYwjWvnbVdfNGnrdNC6pToD454=);
-  color: white;
-  background-size: cover;
-  background-position: center;
-  filter: hue-rotate(45deg);
-}
-body {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 2.0;
-  color: darkslategray;
-  text-align: left;
-  background-color: lightgray;
-}
-.row{
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 2.0;
-  color: darkslategray;
-  text-align: left;
-  background-color:floralwhite;
-  
-}
-.row h1
-{
-  margin: 34px;
-    padding: 20px;
-    font-family: emoji;
-    font-weight: 700;
-}
-.btn-group-lg>.btn, .btn-lg {
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  border-radius: 0.3rem;
-  margin: 118px;
-    padding: 10px;
-    font-family: emoji;
-    background: darkslategray;
-    background: lue;
-    font-weight: 600;
-    color: mintcream;
-}
-.jumbotron-fluid {
-  padding-bottom: 1px;
-  padding-right: 0;
-  padding-left: 0;
-  border-radius: 0;
-  background: floralwhite;
-  padding-top: 0px;
-}
+
 .search_form{
   display: grid;
   grid-template-columns: 80% 20%;
 
-}
-.lead {
-  font-size: 1.25rem;
-  font-weight: 800;
 }
 
 .search_form button {
@@ -238,35 +125,6 @@ body {
   height: 100px;
   border-radius: 50%;
 }
-label {
-  font-family: emoji;
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  font-size: 19px;
-}
-.form-control {
-  filter: drop-shadow(1px 1px 2px black);
-  display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.search-container {
-  display: grid;
-  grid-template-columns: 40% 50%;
-    
-}
 
 /* To be removed*/
-
 

@@ -1,33 +1,37 @@
 <%- include('partials/header') -%>
-    
-    
+    <%if(typeof userName != 'undefined' ){%>
+    <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
+    <%}%>
     <div class="jumbotron jumbotron-fluid">
-      
-        <div class="wrapper">
-          <!--img src="https://media.istockphoto.com/photos/dark-parking-garage-picture-id108226913?k=6&m=108226913&s=170667a&w=0&h=DZzNOkads_srYR5jVfYwjWvnbVdfNGnrdNC6pToD454=" width="100%" height="300px" alt="full width image"-->
-          <h1 class="display-2" >For all your parking needs</h1>
+      <div class="container">
+        <h1 class="display-2">For all your parking needs</h1>
+        <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quos totam repellat quidem voluptates nemo. Rem veniam, commodi quae perferendis iure minima officiis unde esse neque nulla aut praesentium sed?</p>
       </div>
-      </div>
-      
-      <div class="container main-container">
-        <%if(typeof userName != 'undefined' ){%>
-          <h2 class="alert alert-dark">Welcome <%= typeof userName != 'undefined' ? userName : ""%></h2>
-        <%}%>
-        <div class="container">
-        <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quos totam repellat quidem voluptates nemo. Rem veniam, commodi quae perferendis iure minima officiis unde esse neque nulla aut praesentium sed? </p>
-      </div>
-    
-    <%  if(typeof loggedIn != 'undefined') { if(loggedIn) {%>
-      <div>
-        <form action="/search" method="get" class="search_form">
+    </div>
+      <%if(typeof session != 'undefined'){%>
+        <% if(session.authenticated) {%>
           <div>
-            <input type="text" id="userName" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+            <form action="/search" method="get" class="search_form">
+              <div>
+                <input type="text" id="location" name='location' placeholder="Address, Zip Code, Landmark" autofocus required>
+              </div>
+              <button type="submit">Go</button>
+            </form>
+            <div>
+              <a href="/listing">Add a listing</a>
+            </div>
           </div>
-          <button type="submit">Go</button>
-        </form>
-        <a href="/listing">Add a listing</a>
-      </div>
-      <% } else {%>
+        <%} else {%>
+          <div class="landing-buttons">
+            <form action="/login" method="get">
+              <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
+            </form>
+            <form action="/register" method="get">
+              <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
+            </form>
+          </div>
+        <%}%>
+       <%} else {%>
         <div class="landing-buttons">
           <form action="/login" method="get">
             <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
@@ -36,16 +40,5 @@
             <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
           </form>
         </div>
-      <% }
-    } else {%>
-      <div class="landing-buttons">
-        <form action="/login" method="get">
-          <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
-        </form>
-        <form action="/register" method="get">
-          <button class='btn btn-lg btn-outline-dark col-md-3' type="submit">Register</button>
-        </form>
-      </div>
-    </div>
-      <%}%>
+        <%}%>
 <%- include('partials/footer') -%>
