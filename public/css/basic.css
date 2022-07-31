@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+body {
+  background-color: #CCCCCC;
+}
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;

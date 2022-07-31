@@ -4,7 +4,7 @@
 }
 
 .book-container div  {
-    border: 5px solid black;
+    /* border: 5px solid black; */
     margin: 5px;
     padding: 10px;
 }
@@ -18,3 +18,4 @@
     width: 35%;
     border-radius: 5%;
 }
+

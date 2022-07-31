@@ -117,7 +117,16 @@ router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
             rates.netAmount = rates.total + rates.tax
             req.session.rates = rates
             custDetails.parkingSpaceId = req.params.listing
-            res.render('booking', {info: custDetails, rates: rates, session: req.session})
+            custDetails.email = req.session.email
+            custDetails.phone = req.session.phone
+            let listingDetails = {
+                addressLine1: data.addressLine1,
+                city: data.city,
+                province: data.province,
+                zipcode: data.zipcode,
+            }
+            console.log(req.session)
+            res.render('booking', {info: custDetails, rates: rates, session: req.session, listingDetails: listingDetails})
         }
     })
 })
