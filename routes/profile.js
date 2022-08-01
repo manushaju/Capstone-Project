@@ -12,7 +12,14 @@ router.get('/', middlewareObj.isLoggedIn, async (req, res) => {
     userData.data = await getUserData(req.session.userId)
     userData.listings = await getListings(req.session.userId)
     userData.bookings = await getBookings(req.session.userId)
-    res.render('profile', {userData: userData, session: req.session})
+    if(req.session.alerts.data) {
+        res.render('profile', {userData: userData, session: req.session, alert: true, alerts: {
+            data: req.session.alerts.data,
+            type: req.session.alerts.type,
+        } })
+    } else {
+        res.render('profile', {userData: userData, session: req.session})
+    }
 })
 
 function getUserData(userId) {
@@ -64,7 +71,6 @@ async function getBookings(userId) {
 
 function getListing(listingId) {
     return new Promise ( promise => {
-        console.log(listingId)
         listing.findById({_id: listingId}, (err, data) => {
             if (err) {
                 promise(err)

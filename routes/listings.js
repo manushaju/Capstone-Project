@@ -6,6 +6,7 @@ let alerts = require('../data/alerts')
 let middlewareObj = require('../middleware/index')
 
 const NodeGeocoder = require('node-geocoder');
+const booking = require('../models/booking')
 // Setup Geocoder options
 let options = {
     provider: "google",
@@ -42,6 +43,30 @@ router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     listings.find({_id: req.params.listing}, (err, data) => {
         if(!err && data) {
             res.render("listing", {listing: data, session: req.session})
+        }
+    })
+})
+
+router.get('/remove/:listingId', middlewareObj.isLoggedIn, (req, res) => {
+    listings.findOne({_id: req.params.listingId}, (err, data) => {
+        if (!err && data) {
+            booking.find({parkingSpaceId: req.params.listingId}, (err, data) => {
+                if (data.length > 0) {
+                    req.session.alerts.data = "Listing has active bookings, cannot be removed."
+                    req.session.alerts.type = "danger"
+                    res.redirect('/profile')
+                } else {
+                    listings.findOneAndRemove({_id: req.params.listingId}).exec((err, data) =>{
+                        req.session.alerts.data = "Listing removed successfully"
+                        req.session.alerts.type = "success"
+                        res.redirect('/profile')
+                    })
+                }
+            })
+        } else {
+            alerts.data = "Listing not available"
+            alerts.type = "danger"
+            res.render("home", {alerts: alerts, alert: true})
         }
     })
 })

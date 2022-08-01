@@ -4,6 +4,10 @@
 body {
   background-color: #CCCCCC;
 }
+
+a {
+  text-decoration: none;
+}
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -71,7 +75,7 @@ body {
 }
 
 #map {
-  height: 80vh;
+  height: 70vh;
   width: 100%;
   background-color: #0099C3;
 }
@@ -96,18 +100,12 @@ input[type=submit] {
 
 .search-container {
   display: grid;
-  grid-template-columns: 40% 10% 50%;
+  grid-template-columns: 45% 5% 50%;
 }
 .search_form button {
   margin:1em;
   border:none;
-  padding:0.25em 3em 0.25em 1em;
-  text-align:center;
-  background:
-    linear-gradient(-120deg, transparent 1em, #0099C3 1.05em , #0099C3 1.5em, transparent 1.45em, transparent 2em, #0099C3 2.05em) top no-repeat,
-    linear-gradient(300deg, transparent 1em, #0099C3 1.05em , #0099C3 1.5em, transparent 1.45em, transparent 2em, #0099C3 2.05em) bottom no-repeat ;
-  background-size: 100% 50%;
-  color:white
+  
 
 }
 
@@ -121,10 +119,18 @@ input[type=submit] {
   height: 100%;
   border-radius: 10px;
   text-align: center;
+  font-size: larger;
 }
 
 .search-btn {
   border-radius: 100%;
+}
+
+.add-listing-btn {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 120%;
+  font-weight: bold;
 }
 
 .profile-pic {
@@ -133,5 +139,37 @@ input[type=submit] {
   border-radius: 50%;
 }
 
-/* To be removed*/
+.list-items {
+  border-radius: 20px;
+  border: 5px solid green;
+  margin  : 10px;
+  padding: 10px 10px 0 10px;
+  transition: 1s;
+}
 
+.list-items:hover {
+  background-color: green;
+}
+
+.book-listing {
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+  background-color: #0099C3;
+  transition: 1s;
+}
+
+.book-listing:hover {
+  color: #0099C3;
+  background-color: white;
+}
+
+.all-listings {
+  overflow-y: auto;
+  max-height: 50vh;
+}

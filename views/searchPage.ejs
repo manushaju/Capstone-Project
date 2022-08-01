@@ -1,10 +1,10 @@
 <%- include('partials/header') -%>
-    <h1>Search for a parking spot here.</h1>
+    <h3>Search for a parking spot here.</h3>
     <div class="container">
       <div class="search-container">
         <div>
-          <form action="/search" method="get">
-            <input type="text" id="location" name='location' placeholder="Location" value='<%=inputVal.location%>' autofocus required>
+          <form action="/search" method="get" class="fluid">
+            <input type="text" id="location" name='location' class="form-control" placeholder="Enter a location" value='<%=inputVal.location%>' autofocus required>
                         <table>
                             <tr>
                                 <th>Enter Before</th>
@@ -12,10 +12,11 @@
                             </tr>
                             <tr>
                                 <td><input class="form-control" type="datetime-local" name="fromTs" value="<%=inputVal.fromTs%>"></td>
-                                <td><input type="datetime-local" name="toTs" value="<%=inputVal.toTs%>"></td>                            
+                                <td><input class="form-control" type="datetime-local" name="toTs" value="<%=inputVal.toTs%>"></td>                            
+                                <td><button class="search-btn" type="submit"><i class="fa-solid fa-arrow-right"></i></button></td>
                             </tr>
                             <tr>
-                              <td colspan="2"><button class="search-btn" type="submit">-></button></td>
+                              
                             </tr>
                         </table>
           </form>
@@ -23,17 +24,17 @@
             <%if(typeof listings != 'undefined') {%>
                 <% if(listings.length > 0) {%>
                     <% listings.forEach(listing => {%>
-                            <div class="row">
+                            <div class="row list-items">
                                 <div class="d-flex flex-row listing-row">
                                     <a href="/listing/<%=listing._id%>"><img class="listing-images p-2" src="data:image/<%=listing.images[0].contentType%>;base64,
                                             <%=listing.images[0].data.toString('base64')%>" alt="image for user"></a>
                                     <div class="p-2">
-                                        <h3><%=listing.addressLine1%></h3>
+                                        <h5><%=listing.addressLine1%></h5>
                                         <p><%=listing.distance%> mts</p>
                                     </div>
                                     <div class="p-2">
-                                        <p>$<%=listing.hourlyRate%>/Hour</p>
-                                        <a href="book/<%=listing._id%>">Book</a>
+                                        <h4>$<%=listing.hourlyRate%>/Hour</h4>
+                                        <a class="book-listing" href="book/<%=listing._id%>">Book</a>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@
         var center = {lat: <%=markers[0][0]%>, lng: <%=markers[0][1]%> };
         var markers = [];
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 13,
             center: center,
             mapTypeControl: true,
             mapTypeControlOptions: {

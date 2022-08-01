@@ -7,23 +7,49 @@
             No profile image
         </div>
     <%}%>
-    <h1>My Profile</h1>
-    <%=userData.data.userName%>   
-    <%=userData.data.userName%> 
-    <%=userData.data.userName%> 
-    <%=userData.data.userName%> 
-    <%=userData.data.userName%>
-    
+    <h1 class="d-inline"><%=userData.data.name%>'s Profile</h1> <a href="#">📝</a>
+    <h5 class="profile-addressLine1"><%=userData.data.addressLine1%></h5>
+    <h6>+1 (<%=userData.data.phone.slice(0,3)%>)-<%=userData.data.phone.slice(3,6)%>-<%=userData.data.phone.slice(6,10)%></h6>
+    <h6><%=userData.data.email%></h6>
     <%if(userData.listings.length > 0){%> 
-    <h3>My Listing</h3>
-    <%userData.listings.forEach(listing => {%>
-        <div><%=listing.addressLine1%></div>
-        <div><%=listing.hourlyRate%></div>
+        <br>
+        <div class="profile-data d-flex justify-content-between">
+            <h3 class="">My Listing</h3>
+            <a class="btn btn-primary" data-toggle="collapse" href=".profile-listings" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-caret-down"></i></a>
+        </div>
+        <%userData.listings.forEach(listing => {%>
+            <div class="collapse card card-body profile-listings">
+                <a href="/listing/<%=listing._id%>"><img class="listing-images" src="data:image/<%=listing.images[0].contentType%>;base64,
+                    <%=listing.images[0].data.toString('base64')%>" alt="image for listing"></a>
+                <div class="d-inline d-flex justify-content-between">
+                    <h5 class="d-inline"><%=listing.addressLine1%></h5>
+                    <h6 class="d-inline">$<%=listing.hourlyRate%>/hr</h6>
+                    <a class="btn btn-outline-dark" href="/listing/remove/<%=listing._id%>">Remove</a>
+                </div>
+                <div class="text-right">
+                    Availability: <strong><%=new Date(listing.availableFromTs).toDateString()%></strong> to <strong><%=new Date(listing.availableToTs).toDateString()%></strong>
+                </div>
+            </div>
     <%})}%>
+    <br><br>
     <%if(userData.bookings.length > 0){%> 
-    <h3>My Bookings</h3>
-    <%userData.bookings.forEach(booking => {%>
-        <div><%=booking.data.parkingSpaceId%></div>
-        <div><%=booking.listing.addressLine1%></div>
+        <div class="profile-data d-flex justify-content-between">
+            <h3 class="">My Bookings</h3>
+            <a class="btn btn-primary" data-toggle="collapse" href=".profile-bookings" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-caret-down"></i></a>
+        </div>
+        <%userData.bookings.forEach(booking => {%>
+            <div class="collapse card card-body profile-bookings">
+                <a href="/book/show/<%=booking.data._id%>"><img class="listing-images" src="data:image/<%=booking.listing.images[0].contentType%>;base64,
+                    <%=booking.listing.images[0].data.toString('base64')%>" alt="image for listing"></a>
+                <div class="d-inline d-flex justify-content-between">
+                    <h5 class="d-inline"><%=booking.listing.addressLine1%></h5>
+                    <h6 class="d-inline">Total: $<%=booking.data.netAmount%>/hr</h6>
+                    <a class="btn btn-outline-dark" href="/book/remove/<%=booking.data._id%>">Remove</a>
+                </div>
+                <div class="text-right">
+                    Booked period: <strong><%=new Date(booking.data.fromTS).toDateString()%> : <%=new Date(booking.data.fromTS).toTimeString().slice(0,5)%></strong> to <strong><%=new Date(booking.data.toTS).toDateString()%> : <%=new Date(booking.data.toTS).toTimeString().slice(0,5)%></strong>
+                </div>
+            </div>
+            
     <%})}%>
 <%- include('partials/footer') -%>

@@ -53,9 +53,14 @@ mongoose.connect(databaseConn, {
 
 
 app.get('/', (req, res) => {
+    req.session.alerts = {
+        data: "",
+        type: ""
+    }
   res.render('home', {
     tempData: "",
     userName: req.session.username,
+    name: req.session.name,
     loggedIn: req.session.authenticated,
     session: req.session
     });

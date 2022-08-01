@@ -33,47 +33,19 @@ paypal.configure({
     'client_secret': 'EJh693rBPKWXh6atQO3-fU8efID3te4q4Lp9h3FFufD7B0AV14EuXFClqWSojljgOvB7a0F0i8EJ9Kkb'
   });
 
-//   router.post('/pay', (req, res) => {
-//     const create_payment_json = {
-//         "intent": "sale",
-//         "payer": {
-//             "payment_method": "paypal"
-//         },
-//         "redirect_urls": {
-//             "return_url": "http://localhost:3500/book/pay/success",
-//             "cancel_url": "http://localhost:3500/book/pay/cancel"
-//         },
-//         "transactions": [{
-//             "item_list": {
-//                 "items": [{
-//                     "name": "Temp data",
-//                     "sku": "Temp Item",
-//                     "price": "25.00",
-//                     "currency": "CAD",
-//                     "quantity": 1
-//                 }]
-//             },
-//             "amount": {
-//                 "currency": "CAD",
-//                 "total": "25.00"
-//             },
-//             "description": "This is the payment description."
-//         }]
-//     };
-     
-     
-//     paypal.payment.create(create_payment_json, function (error, payment) {
-//         if (error) {
-//             throw error;
-//         } else {
-//             for(let item of payment.links) {
-//                 if(item.rel == 'approval_url') {
-//                     res.redirect(item.href)
-//                 }
-//             }
-//         }
-//     });
-// })
+router.get('/pay/cancel', (req, res) => {
+    res.redirect('/search')
+})
+
+router.get('/remove/:bookingId', (req, res) => {
+    payments.findOneAndRemove({bookingId: req.params.bookingId}).exec((err, data) => {
+        bookings.findOneAndRemove({_id: req.params.bookingId}).exec((err, data) => {
+            req.session.alerts.data = "Successfully removed the booking"
+            req.session.alerts.type = "success"
+            res.redirect('/profile')
+        })
+    })
+})
 
 router.get('/pay/success', (req, res) => {
     const payerId = req.query.PayerID

@@ -18,8 +18,8 @@ const today = new Date()
 const tomorrow = new Date(today)
 let inputVal = {
     location: "",
-    fromTs: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getDate()}T12:00`,
-    toTs: `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${tomorrow.getDate()}T12:00`,
+    fromTs: `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}T12:00`,
+    toTs: `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String((tomorrow.getDate() + 1)).padStart(2, '0')}T12:00`,
 }
 
 // Setup Geocoder options
@@ -32,12 +32,7 @@ let options = {
 
 let geocoder = NodeGeocoder(options)
 
-router.get('/difference', async (req, res) => {
-    let data = await getValidBookings()
-    console.log("*********")
-    console.log(data[0].bookingDetails.length)
-    res.send({value: data[0]})
-})
+
 
 router.get('/', async function(req, res)  {
 
