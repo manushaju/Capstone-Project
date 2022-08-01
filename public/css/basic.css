@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #CCCCCC;
+  background-color: aliceblue;
 }
 
 a {
@@ -20,7 +20,54 @@ a {
 .navbar-nav  a:hover {
     color: #1abc9c !important;
 }
-
+.navbar-light .navbar-brand {
+  color: rgba(0,0,0,.9);
+  color: #b7359b;
+  font-weight: bold;
+  font-size: 50px;
+  text-shadow: 2px 2px #1fa1cd;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: darkmagenta;
+  font-family: 'FontAwesome';
+  font-size: 14px;
+  padding: 34px;
+  font-weight: 900;
+}
+.jumbotron-fluid {
+  background-image: url(https://thumbs.dreamstime.com/b/wisley-surrey-uk-april-car-park-parking-lot-colorful-different-coloured-cars-trees-distance-wisley-surrey-uk-april-car-109250888.jpg);
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 0;
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.h1, h1 {
+  margin-bottom: 0.5rem;
+  line-height: 2.2;
+  font-size: 2.1875rem;
+  margin-top: 3rem!important;
+  text-align: center!important;
+  font-weight: 600!important;
+  font-size: 2.5rem;
+  font-family: monospace;
+  color: darkslateblue;
+}
+.lead {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-weight: 500!important;
+  color: darkslateblue!important;
+  font-family: monospace;
+}
 .footer-padding {
 	padding-bottom: 60px;
 }
@@ -32,7 +79,7 @@ a {
 	text-align: center;
 	width: 100%;
 	/* height: 40px; */
-	background-color: #1abc9c;
+	background-color: #287e9b;
 }
 
 .footer p {
@@ -90,6 +137,13 @@ input[type=submit] {
 }
 .landing-buttons form {
   display: inline
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+  background-color: #131366;
+  border-color: #cd6921;
+  color: white;
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 2px black);
 }
 
 .search_form{
