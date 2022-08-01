@@ -41,8 +41,13 @@ router.get('/', middlewareObj.isLoggedIn, (req, res) =>{
 
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     listings.find({_id: req.params.listing}, (err, data) => {
-        if(!err && data) {
+        if(!err && data.length > 0) {
+            console.log(data)
             res.render("listing", {listing: data, session: req.session})
+        } else {
+            req.session.alerts.data = "Listing not available"
+            req.session.alerts.type = "warning"
+            res.redirect('/')
         }
     })
 })
