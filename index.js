@@ -68,8 +68,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/logout', (req, res) => {
-    req.session.authenticated = false
-    req.session.username = ""
+    req.session = null
     res.redirect('/')
 })
 

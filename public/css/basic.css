@@ -120,7 +120,6 @@ label {
   font-weight: 700;
 }
 .h3, h3 {
-  margin-bottom: 3rem;
   line-height: 2.2;
   font-size: 2.1875rem;
   margin-top: 3rem!important;
@@ -254,7 +253,7 @@ input[type=submit] {
 }
 
 .list-items:hover {
-  background-color: green;
+  background-color: rgb(173, 243, 173);
 }
 
 .book-listing {

@@ -5,7 +5,7 @@
             <form action="/book/<%=info.parkingSpaceId%>" method="post" class="fluid">
                 <div>
                     <h3>1. Account Info</h3>
-                    <h3>Confirm Email Address</h3>
+                    <h6>Confirm Email Address</h6>
                     <div class="form-group col-md-6">
                         <input type="email" class="form-control" value="<%=info.email%>" name="email">
                     </div>
@@ -16,7 +16,7 @@
                         <label for="phone">Phone</label>
                         <input type="text" class="form-control" id='phone' name="phone" value="<%=info.phone%>">
                     </div>
-                    <h5>Vehicle Details</h5>
+                    <h6>Vehicle Details</h6>
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" value="" name="makeModel" id="makeModel" placeholder="Make and Model">
                     </div>
@@ -30,11 +30,11 @@
                 </div>  
                 <div>
                     <h3>3. Payment Details</h3>
-                    <h4 class="text-right">Total $<%=rates.total.toFixed(2)%></h4>
+                    <h5 class="text-right">Total $<%=rates.total.toFixed(2)%></h5>
                     <hr>
-                    <h5 class="text-right">Tax $<%=rates.tax.toFixed(2)%></h5>
+                    <h6 class="text-right">Tax $<%=rates.tax.toFixed(2)%></h6>
                     <hr>
-                    <h5 class="text-right">Net Total $<%=rates.netAmount.toFixed(2)%></h5>
+                    <h6 class="text-right">Net Total $<%=rates.netAmount.toFixed(2)%></h6>
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Pay and Book</button>                        
                 </div>   
             </form>
