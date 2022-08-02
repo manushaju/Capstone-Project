@@ -7,7 +7,7 @@
             No profile image
         </div>
     <%}%>
-    <h1 class="d-inline"><%=userData.data.name%>'s Profile</h1> <a href="#">📝</a>
+    <h1 class="d-inline"><%=userData.data.name%>'s Profile</h1>
     <h5 class="profile-addressLine1"><%=userData.data.addressLine1%></h5>
     <h6>+1 (<%=userData.data.phone.slice(0,3)%>)-<%=userData.data.phone.slice(3,6)%>-<%=userData.data.phone.slice(6,10)%></h6>
     <h6><%=userData.data.email%></h6>
@@ -39,11 +39,11 @@
         </div>
         <%userData.bookings.forEach(booking => {%>
             <div class="collapse card card-body profile-bookings">
-                <a href="/book/show/<%=booking.data._id%>"><img class="listing-images" src="data:image/<%=booking.listing.images[0].contentType%>;base64,
-                    <%=booking.listing.images[0].data.toString('base64')%>" alt="image for listing"></a>
+                <img class="listing-images" src="data:image/<%=booking.listing.images[0].contentType%>;base64,
+                    <%=booking.listing.images[0].data.toString('base64')%>" alt="image for listing">
                 <div class="d-inline d-flex justify-content-between">
                     <h5 class="d-inline"><%=booking.listing.addressLine1%></h5>
-                    <h6 class="d-inline">Total: $<%=booking.data.netAmount%>/hr</h6>
+                    <h6 class="d-inline">Total: <strong>$<%=booking.data.netAmount%></strong>/hr</h6>
                     <a class="btn btn-outline-dark" href="/book/remove/<%=booking.data._id%>">Remove</a>
                 </div>
                 <div class="text-right">

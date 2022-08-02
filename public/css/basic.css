@@ -169,6 +169,11 @@ input[type=submit] {
   background-color: white;
 }
 
+.listing-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 .all-listings {
   overflow-y: auto;
   max-height: 50vh;

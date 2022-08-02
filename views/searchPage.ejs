@@ -22,10 +22,11 @@
           </form>
           <div class="all-listings">
             <%if(typeof listings != 'undefined') {%>
-                <% if(listings.length > 0) {%>
+                <% if(listings.length > 0) { let i = 0%>
                     <% listings.forEach(listing => {%>
                             <div class="row list-items">
                                 <div class="d-flex flex-row listing-row">
+                                    <div><h3><%= ++i%></h3></div>
                                     <a href="/listing/<%=listing._id%>"><img class="listing-images p-2" src="data:image/<%=listing.images[0].contentType%>;base64,
                                             <%=listing.images[0].data.toString('base64')%>" alt="image for user"></a>
                                     <div class="p-2">
@@ -54,7 +55,8 @@
     
     <script>
       function initMap() {
-        
+        var labels = "123456789"
+        let labelIndex = 0
         var center = {lat: <%=markers[0][0]%>, lng: <%=markers[0][1]%> };
         var markers = [];
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -84,6 +86,7 @@
           var pin = new google.maps.Marker({
             position: new google.maps.LatLng(<%= marker[0]%>, <%= marker[1]%>),
             map: map,
+            label: labels[labelIndex++]
           });
           markers.push(pin)
         <%})%>
