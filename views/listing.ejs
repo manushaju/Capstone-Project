@@ -1,7 +1,6 @@
 <%- include('partials/header') -%>
-    <h2>ashd</h2>
     <h2><%=listing[0].addressLine1%></h2>
-    <h2><%=listing[0].hourlyRate%></h2>
+    <h3><%=listing[0].hourlyRate%></h3>
     
     <!-- Slideshow container -->
 <div class="slideshow-container">
@@ -19,8 +18,21 @@
   </div>
   <br>
   
-  
-    <h2>1<%=listing[0].addressLine1%></h2>
-    <h2>1<%=listing.hourlyRate%></h2>
+    <% if(listing.bookings.length > 0) {%>
+        <div class="profile-data d-flex justify-content-between">
+            <h3 class="">Booked Timings</h3>
+            <a class="btn btn-primary" data-toggle="collapse" href=".profile-bookings" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-caret-down"></i></a>
+        </div>
+        <%listing.bookings.forEach(booking => {%>
+            <div class="collapse card card-body profile-bookings">
+                <div>
+                    <strong>Total Price: $<%=booking.netAmount.toFixed(2)%></strong> <br>
+                    Booked period: <strong><%=new Date(booking.fromTS).toDateString()%> : <%=new Date(booking.fromTS).toTimeString().slice(0,5)%></strong> to <strong><%=new Date(booking.toTS).toDateString()%> : <%=new Date(booking.toTS).toTimeString().slice(0,5)%></strong>
+                </div> 
+            </div>
+            
+    <%})} else {%>
+        <h3 class="">No bookings yet.!</h3>
+    <%}%>
     <script src="/js/carousel.js"></script>
 <%- include('partials/footer') -%>

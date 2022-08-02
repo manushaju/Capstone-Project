@@ -39,11 +39,18 @@ router.get('/', middlewareObj.isLoggedIn, (req, res) =>{
     res.render('addListing', {listing: listing, session: req.session})
 })
 
-router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
+router.get('/:listing', (req, res) => {
     listings.find({_id: req.params.listing}, (err, data) => {
         if(!err && data.length > 0) {
-            console.log(data)
-            res.render("listing", {listing: data, session: req.session})
+            let listingData = data
+            booking.find({parkingSpaceId: req.params.listing}, (err, bookings) => {
+                if (!err && bookings.length > 0){
+                    listingData.bookings = bookings
+                } else {
+                    listingData.bookings = []
+                }
+                res.render("listing", {listing: listingData, session: req.session})
+            })
         } else {
             req.session.alerts.data = "Listing not available"
             req.session.alerts.type = "warning"
