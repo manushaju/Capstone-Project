@@ -21,8 +21,7 @@ a {
     color: #1abc9c !important;
 }
 .navbar-light .navbar-brand {
-  color: rgba(0,0,0,.9);
-  color: #b7359b;
+  color: #a52589;
   font-weight: bold;
   font-size: 50px;
   text-shadow: 2px 2px #1fa1cd;
@@ -119,6 +118,19 @@ label {
   border-color: greenyellow;
   font-family: monospace;
   font-weight: 700;
+}
+.h3, h3 {
+  margin-bottom: 3rem;
+  line-height: 2.2;
+  font-size: 2.1875rem;
+  margin-top: 3rem!important;
+  text-align: center!important;
+  font-weight: 700!important;
+  font-size: 2.5rem;
+  font-family: monospace;
+  color: darkslateblue;
+  text-transform: uppercase;
+  font-size: 1.75rem;
 }
 
 
