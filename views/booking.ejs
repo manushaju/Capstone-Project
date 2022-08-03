@@ -28,15 +28,7 @@
                     </div>
                     
                 </div>  
-                <div>
-                    <h3>3. Payment Details</h3>
-                    <h5 class="text-right">Total $<%=rates.total.toFixed(2)%></h5>
-                    <hr>
-                    <h6 class="text-right">Tax $<%=rates.tax.toFixed(2)%></h6>
-                    <hr>
-                    <h6 class="text-right">Net Total $<%=rates.netAmount.toFixed(2)%></h6>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Pay and Book</button>                        
-                </div>   
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Pay and Book</button>                        
             </form>
         </div>
         <div class="book-right-container">
@@ -66,6 +58,15 @@
                     </tr>
                 </table>
             </div>
+            <div>
+                <h3>3. Payment Details</h3>
+                <h5 class="text-right">Total $<%=rates.total.toFixed(2)%></h5>
+                <hr>
+                <h6 class="text-right">Tax $<%=rates.tax.toFixed(2)%></h6>
+                <hr>
+                <h6 class="text-right">Net Total $<%=rates.netAmount.toFixed(2)%></h6>
+                    
+            </div> 
         </div>
     </div>
 <%- include('partials/footer') -%>

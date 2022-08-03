@@ -1,26 +1,18 @@
 document.querySelectorAll('.register-passwords').forEach(item => {
-    item.addEventListener('change', (e) => {
-        var passwords = document.querySelectorAll('.register-passwords')
+    item.addEventListener('keyup', (e) => {
+        let passwords = document.querySelectorAll('.register-passwords')
+        let passwordenter = document.getElementById("passwordenter")
+        let passwordreenter = document.getElementById("passwordreenter")
+        passwordenter.setAttribute("class", "fa-solid fa-check-double text-danger")
+        passwordreenter.setAttribute("class", "fa-solid fa-check-double text-danger")
+        document.querySelector('#register-btn').setAttribute('disabled', "")
         if (passwords[0].value === passwords[1].value){
             console.log("passwords matches")
             document.querySelector('#register-btn').removeAttribute('disabled')
+            passwordreenter.setAttribute("class", "fa-solid fa-check-double text-success")
+            passwordenter.setAttribute("class", "fa-solid fa-check-double text-success")
         } else {
-            document.querySelector('#register-btn').setAttribute('disabled')
+            document.querySelector('#register-btn').setAttribute('disabled', "")
         }
     })
 })
-
-// function initMap(){
-//     console.log("addede")
-//     const map_location = { lat: -25.344, lng: 131.031}
-
-//     const map = new google.maps.Map(document.getElementById(map), {
-//         zoom: 4,
-//         center: map_location,
-//     })
-
-//     const marker = new google.maps.Marker({
-//         position: uluru,
-//         map: map,
-//       });
-// }
