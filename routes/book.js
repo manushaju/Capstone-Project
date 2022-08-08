@@ -131,10 +131,10 @@ router.post('/:listing', middlewareObj.isLoggedIn, (req, res) => {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    // "return_url": "http://localhost:3500/book/pay/success",
-                    // "cancel_url": "http://localhost:3500/book/pay/cancel"
-                    "return_url": "https://park-space.herokuapp.com/book/pay/success",
-                    "cancel_url": "https://park-space.herokuapp.com/book/pay/cancel"
+                    "return_url": "http://localhost:3500/book/pay/success",
+                    "cancel_url": "http://localhost:3500/book/pay/cancel"
+                    // "return_url": "https://park-space.herokuapp.com/book/pay/success",
+                    // "cancel_url": "https://park-space.herokuapp.com/book/pay/cancel"
                 },
                 "transactions": [{
                     "item_list": {
