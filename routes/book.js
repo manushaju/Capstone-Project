@@ -37,7 +37,7 @@ router.get('/pay/cancel', (req, res) => {
     res.redirect('/search')
 })
 
-router.get('/remove/:bookingId', (req, res) => {
+router.get('/remove/:bookingId', middlewareObj.isLoggedIn, (req, res) => {
     payments.findOneAndRemove({bookingId: req.params.bookingId}).exec((err, data) => {
         bookings.findOneAndRemove({_id: req.params.bookingId}).exec((err, data) => {
             req.session.alerts.data = "Successfully removed the booking"

@@ -39,7 +39,7 @@ router.get('/', middlewareObj.isLoggedIn, (req, res) =>{
     res.render('addListing', {listing: listing, session: req.session})
 })
 
-router.get('/:listing', (req, res) => {
+router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     listings.find({_id: req.params.listing}, (err, data) => {
         if(!err && data.length > 0) {
             let listingData = data
