@@ -97,7 +97,6 @@ router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
                 province: data.province,
                 zipcode: data.zipcode,
             }
-            console.log(req.session)
             res.render('booking', {info: custDetails, rates: rates, session: req.session, listingDetails: listingDetails})
         }
     })

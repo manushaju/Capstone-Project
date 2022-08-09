@@ -6,6 +6,11 @@ document.querySelectorAll('.register-passwords').forEach(item => {
         passwordenter.setAttribute("class", "fa-solid fa-check-double text-danger")
         passwordreenter.setAttribute("class", "fa-solid fa-check-double text-danger")
         document.querySelector('#register-btn').setAttribute('disabled', "")
+        if(passwords[0].value == "" && passwords[1].value == ""){
+            passwordenter.setAttribute("class", "fa-solid fa-check-double text-danger")
+            passwordreenter.setAttribute("class", "fa-solid fa-check-double text-danger")
+            document.querySelector('#register-btn').setAttribute('disabled', "")
+        }
         if (passwords[0].value === passwords[1].value){
             console.log("passwords matches")
             document.querySelector('#register-btn').removeAttribute('disabled')

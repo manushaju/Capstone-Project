@@ -9,7 +9,7 @@
     <%}%>
     <h1 class="d-inline"><%=userData.data.name%>'s Profile</h1>
     <h5 class="profile-addressLine1"><%=userData.data.addressLine1%></h5>
-    <h6>+1 (<%=userData.data.phone.slice(0,3)%>)-<%=userData.data.phone.slice(3,6)%>-<%=userData.data.phone.slice(6,10)%></h6>
+    <h6><%=userData.data.phone  %></h6>
     <h6><%=userData.data.email%></h6>
     <%if(userData.listings.length > 0){%> 
         <br>
