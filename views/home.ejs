@@ -5,8 +5,8 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-5">For all your parking needs</h1>
-        <p class="lead">Here you can rent out the unused parking space at your house. And book a slot at affordable rates.</p>
-        <p class="lead">All you need is a parking space and nothing else.!</p>
+        <p class="lead text-center">Here you can rent out the unused parking space at your house. And book a slot at affordable rates.</p>
+        <p class="lead text-center">All you need is a parking space and nothing else.! Try now.</p>
       </div>
     </div>
     <form action="/search" method="get" class="search_form">
@@ -24,7 +24,7 @@
             </div>
           </div>
         <%} else {%>
-          <div class="landing-buttons">
+          <div class="landing-buttons text-center">
             <form action="/login" method="get">
               <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
             </form>
@@ -34,7 +34,7 @@
           </div>
         <%}%>
        <%} else {%>
-        <div class="landing-buttons">
+        <div class="landing-buttons text-center">
           <form action="/login" method="get">
             <button class='btn btn-lg btn-dark col-md-3' type="submit">Login</button>
           </form>
