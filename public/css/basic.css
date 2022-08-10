@@ -179,8 +179,9 @@ input[type=submit] {
 }
 [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
   background-color: #131366;
-  border-color: #cd6921
-  ;
+  border-color: #cd6921;
+  font-family: cursive;
+  font-weight: 500;
   color: white;
   cursor: pointer;
   filter: drop-shadow(2px 2px 2px black);
