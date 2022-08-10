@@ -43,7 +43,7 @@
                     <%=booking.listing.images[0].data.toString('base64')%>" alt="image for listing">
                 <div class="d-inline d-flex justify-content-between">
                     <h5 class="d-inline"><%=booking.listing.addressLine1%></h5>
-                    <h6 class="d-inline">Total: <strong>$<%=booking.data.netAmount.toFixed(2)%></strong>/hr</h6>
+                    <h6 class="d-inline">Total: <strong>$<%=booking.data.netAmount.toFixed(2)%></strong></h6>
                     <a class="btn btn-outline-dark" href="/book/remove/<%=booking.data._id%>">Cancel</a>
                 </div>
                 <div class="text-right">
