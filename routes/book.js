@@ -29,8 +29,8 @@ let rates = {
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': 'ASZZc5KiU3OKIxDDgV39bovRLRAo38f8cZ7vrZ7IGgmR6QETWzWwOzfPvzEKehyM5FNbkkzGDJdDW66W',
-    'client_secret': 'EJh693rBPKWXh6atQO3-fU8efID3te4q4Lp9h3FFufD7B0AV14EuXFClqWSojljgOvB7a0F0i8EJ9Kkb'
+    'client_id': process.env.PAYPAL_CLIENT_ID,
+    'client_secret': process.env.PAYPAL_CLIENT_SECRET
   });
 
 router.get('/pay/cancel', (req, res) => {
@@ -84,7 +84,10 @@ router.get('/pay/success', (req, res) => {
 router.get('/:listing', middlewareObj.isLoggedIn, (req, res) => {
     listings.findOne( {_id: req.params.listing}, (err, data) => {
         if(!err && data) {
-            rates.total = parseFloat(data.hourlyRate) * 24
+            let fromTs = new Date(req.session.fromTs)
+            let toTs = new Date(req.session.toTs)
+            let days = Math.floor((toTs - fromTs) / (1000*60*60*24))
+            rates.total = parseFloat(data.hourlyRate) * 24 * days
             rates.tax = rates.total * .13
             rates.netAmount = rates.total + rates.tax
             req.session.rates = rates

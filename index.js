@@ -72,6 +72,10 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
+app.get('/about', (req, res) => {
+    res.render("about", {session: req.session})
+})
+
 
 
 app.listen(process.env.PORT || 3500, function() {

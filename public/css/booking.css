@@ -27,15 +27,7 @@
     transition: all .5s ease-in-out;
     overflow: hidden;
 }
-.h5, h5 {
-    
-    font-size: 1.25rem;
-    font-weight: 900;
-}
-.h4, h4 {
-    font-size: 1.25rem;
-    font-family: fantasy;
-}
+
 .h5, p{
         margin-top: 0;
         margin-bottom: 1rem;
