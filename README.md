@@ -7,9 +7,10 @@ Go thru the link to generate the API Key: https://tinyurl.com/2p9ftjf3
 3)	Create an account in PayPal sandbox and obtain an API key for making test payments through PayPal sandbox.
 Link for setting up the key: https://developer.paypal.com/
 4)	Once the above keys are generated, create a .env file in the main directory and populate the keys as below.
-GEOCODER_API_KEY=<Google Maps API Key>
-PAYPAL_CLIENT_ID=<PayPal Client Key>
-PAYPAL_CLIENT_SECRET=<PayPal Secret>
+
+ GEOCODER_API_KEY=<Google Maps API Key>
+ PAYPAL_CLIENT_ID=<PayPal Client Key>
+ PAYPAL_CLIENT_SECRET=<PayPal Secret>
 5)	Once the .env file is created run the application using node index command.
 
 #How to Create the Database
